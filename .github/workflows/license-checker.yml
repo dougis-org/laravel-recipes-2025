@@ -1,0 +1,19 @@
+name: License Checker
+on:
+  pull_request: # Triggered when PR is submitted/updated
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  oss-license-check: # "Reusable OSS License check"
+    uses: hellodigit/infra-tools/.github/workflows/reusable-oss-license-check.yml@fc646d635ed27091760e9d07fbdce16d4294c41b # v1.204.5
+    with:
+      licensesRef: fc646d635ed27091760e9d07fbdce16d4294c41b # v1.204.5
+
+      useCase: "internal" #Case-sensitive [distributed, saas, internal]
+      dependencyType: "runtime" # Use reusable workflow [compile-time, runtime, source-combination]
+    secrets:
+      token: ${{ secrets.SRV_DBS_DEPENDENCY_REVIEW }}
