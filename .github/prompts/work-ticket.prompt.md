@@ -2,6 +2,11 @@
 description: Execute an approved implementation plan for a GitHub issue. Supports single issues and decomposed sub-issues with full workflow iteration.
 ---
 
+# Work Ticket Prompt
+
+**Mode Check**: This prompt requires `work-ticket` chat mode to be active.
+- If you do not have `work-ticket` mode active, please set it and re-run this prompt.
+
 **Goal:** Implement the plan produced by `plan-ticket` with TDD, quality gates, and branch hygiene. If the issue is decomposed into sub-issues, iterate through each sub-issue using the complete workflow (clarify → plan → analyze → work).
 
 > This prompt assumes a plan comment already exists in the GitHub issue. If not, run `plan-ticket`. The plan must have passed `analyze-plan` review before work can begin.

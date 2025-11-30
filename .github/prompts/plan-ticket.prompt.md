@@ -2,6 +2,11 @@
 description: Build an execution plan for a GitHub issue using TDD and repo context (planning mode).
 ---
 
+# Plan Ticket Prompt
+
+**Mode Check**: This prompt requires `plan-ticket` chat mode to be active.
+- If you do not have `plan-ticket` mode active, please set it and re-run this prompt.
+
 **Goal:** Produce a concise, unambiguous implementation plan that a separate engineer/agent can execute without further clarification. If decomposition is warranted, create sub-issues (slices) with full work details; otherwise document plan as a comment within the parent issue.
 
 > Output only the plan (no extraneous narrative). Ask clarifying questions ONLY once if blocking gaps exist.

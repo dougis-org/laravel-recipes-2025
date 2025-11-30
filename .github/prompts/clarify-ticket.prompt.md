@@ -2,13 +2,18 @@
 description: Identify underspecified areas in a GitHub issue by asking up to 5 highly targeted clarification questions and encoding answers back into the issue.
 ---
 
+# Clarify Ticket Prompt
+
+**Mode Check**: This prompt requires `plan-ticket` chat mode to be active.
+- If you do not have `plan-ticket` mode active, please set it and re-run this prompt.
+
 The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
 $ARGUMENTS
 
-Goal: Detect and reduce ambiguity or missing decision points in the GitHub issue and record the clarifications directly as a comment within the issue.
+**Goal**: Detect and reduce ambiguity or missing decision points in the GitHub issue and record the clarifications directly as a comment within the issue.
 
 Note: This clarification workflow is expected to run (and be completed) BEFORE invoking `plan-ticket`. If the user explicitly states they are skipping clarification (e.g., exploratory spike), you may proceed, but must warn that downstream rework risk increases.
 

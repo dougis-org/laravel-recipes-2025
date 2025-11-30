@@ -2,13 +2,18 @@
 description: Perform a non-destructive cross-artifact consistency and quality analysis of the GitHub issue and its plan comment. Identify gaps, ambiguities, and inconsistencies before moving to implementation.
 ---
 
+# Analyze Plan Prompt
+
+**Mode Check**: This prompt requires `plan-ticket` chat mode to be active.
+- If you do not have `plan-ticket` mode active, please set it and re-run this prompt.
+
 The user input to you can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
 
 User input:
 
 $ARGUMENTS
 
-Goal: Review the planned work documented in a GitHub issue comment (created by `plan-ticket`) to identify inconsistencies, ambiguities, underspecifications, and gaps. This is a REQUIRED quality gate that runs AFTER `plan-ticket` and BEFORE `work-ticket`. Enable refinement of the plan before implementation begins.
+**Goal**: Review the planned work documented in a GitHub issue comment (created by `plan-ticket`) to identify inconsistencies, ambiguities, underspecifications, and gaps. This is a REQUIRED quality gate that runs AFTER `plan-ticket` and BEFORE `work-ticket`. Enable refinement of the plan before implementation begins.
 
 STRICTLY READ-ONLY BY DEFAULT: Do **not** modify the issue or comments without explicit user approval. Output a structured analysis report. Offer optional refinement suggestions that the user can approve before updates are applied to the issue.
 

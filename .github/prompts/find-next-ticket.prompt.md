@@ -2,9 +2,12 @@
 description: Determine the single next GitHub issue that can safely be started (critical-path first). Returns ONLY the issue number or, if none are startable, an explanation of blockers.
 ---
 
-# find-next-ticket Prompt
+# Find Next Ticket Prompt
 
-Goal: Identify exactly one GitHub issue (number only) in laravel-recipes-2025 that is the next logical item to pick up, respecting issue priority and blocking relationships, with zero side effects (read-only). If no item is startable, output a concise blocker explanation instead of an issue number.
+**Mode Check**: This prompt requires `find-next-ticket` chat mode to be active.
+- If you do not have `find-next-ticket` mode active, please set it and re-run this prompt.
+
+**Goal**: Identify exactly one GitHub issue (number only) in laravel-recipes-2025 that is the next logical item to pick up, respecting issue priority and blocking relationships, with zero side effects (read-only). If no item is startable, output a concise blocker explanation instead of an issue number.
 
 ## Output Contract (STRICT)
 - If a startable issue exists: Present the issue to user for confirmation before proceeding.
