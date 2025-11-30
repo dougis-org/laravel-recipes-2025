@@ -2,6 +2,9 @@
 
 This document provides centralized guidelines for all AI coding agents (GitHub Copilot, Claude, and other AI assistants) working on the Laravel Recipe Manager project.
 
+## WSL Path Guidance
+When working on Windows with WSL, prefer Linux-style absolute paths inside the WSL environment (for example: `/home/doug/dev/laravel-recipes-2025`). If referencing the same files from Windows tools, the equivalent UNC path is `\\wsl.localhost\\Ubuntu\\home\\doug\\dev\\laravel-recipes-2025`. Always use absolute paths that begin with `/` (Linux) or `\\wsl.localhost\\...` (Windows/WSL) and avoid relative paths. When writing instructions for tools or scripts, use the Linux-style `/home/doug/...` form unless the tool is explicitly running in Windows native context.
+
 ## Purpose
 
 These guidelines ensure AI agents understand the project architecture, coding standards, and development workflow. AI agents should follow these instructions when implementing features, fixes, improvements, and architectural changes.
