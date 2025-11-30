@@ -7,9 +7,10 @@ description: Determine the single next GitHub issue that can safely be started (
 Goal: Identify exactly one GitHub issue (number only) in laravel-recipes-2025 that is the next logical item to pick up, respecting issue priority and blocking relationships, with zero side effects (read-only). If no item is startable, output a concise blocker explanation instead of an issue number.
 
 ## Output Contract (STRICT)
-- If a startable issue exists: OUTPUT ONLY the issue number (e.g., `19`) and NOTHING else (no backticks, no prose).
+- If a startable issue exists: Present the issue to user for confirmation before proceeding.
 - If none are startable: output a short human explanation listing the earliest blocked task and its blocking predecessors (numbers + statuses). Do NOT fabricate issue numbers.
-- Never modify GitHub issues, add comments, or change issue status/labels.
+- Upon user confirmation: Mark issue as in-progress and remind user to run clarify-ticket next.
+- Never modify GitHub issues without explicit confirmation flow (see User Confirmation section below).
 
 ## Read-Only Data Acquisition
 Use GitHub MCP search (GraphQL or REST API) queries ONLY. Never assume statuses—always fetch.
@@ -49,6 +50,63 @@ Removed previous fallback of returning earliest in-progress item; now only pure 
 ## Tie-Breakers
 Sort by GitHub priority (highest first), then by issue creation date (oldest first) to ensure deterministic ordering.
 
+---
+
+## User Confirmation Flow
+
+When a startable issue is identified:
+
+1. **Present the Issue to User**:
+   - Fetch full issue details using GitHub MCP `issue_read` method `get`.
+   - Display to user:
+     ```
+     Next startable issue:
+     
+     #{{ISSUE_NUMBER}}: {{ISSUE_TITLE}}
+     
+     {{ISSUE_DESCRIPTION_FIRST_100_CHARS}}...
+     
+     Priority: {{PRIORITY_LABEL}}
+     Assignees: {{ASSIGNEES}}
+     
+     Ready to pick this up?
+     ```
+   - Await user confirmation (affirmative response: "yes", "ok", "proceed", "accept", "ready").
+
+2. **If User Confirms** ("yes" / "ok" / "proceed" / "accept" / "ready"):
+   - Use GitHub MCP `issue_write` method `update` to update the issue:
+     - Set state to "open" (already open, but ensure no other changes)
+     - Add label `in-progress` (if not already present)
+   - Use GitHub MCP `add_issue_comment` to add a comment:
+     ```
+     Issue marked as in-progress. Starting work on this issue.
+     ```
+   - Output:
+     ```
+     ✅ Issue #{{ISSUE_NUMBER}} marked as in-progress.
+     
+     **Next Step**: Before planning, run the clarify-ticket prompt to ensure all details and edge cases are defined:
+     
+     Use: `clarify-ticket` with issue #{{ISSUE_NUMBER}}
+     
+     This will:
+     - Identify any underspecified areas
+     - Ask up to 5 targeted clarification questions
+     - Record all Q&A in the issue itself
+     
+     Once clarifications are complete, proceed to: `plan-ticket` with issue #{{ISSUE_NUMBER}}
+     ```
+
+3. **If User Declines** or provides ambiguous response:
+   - Ask: "Skip this issue and find the next one?"
+   - If user confirms skip:
+     - Re-run the selection algorithm, excluding the declined issue (treat as internally filtered).
+     - Present the next startable issue.
+   - If user cancels:
+     - Output: "Issue selection cancelled. Run `find-next-ticket` again when ready."
+
+---
+
 ## Validation & Safety
 - Never transition or comment.
 - Do not guess states; if a needed issue fetch fails, treat that predecessor as blocking and provide explanation.
@@ -65,12 +123,14 @@ Scenario D: All open issues each have at least one unresolved predecessor → Ex
 2. Build a dependency map from issue links (blockers per issue number).
 3. Identify all startable issues (open state, all predecessors closed or none).
 4. Sort by priority (highest first), then by creation date (oldest first).
-5. Return the first issue number, or an explanation if no startable issues exist.
-6. Emit output per contract.
+5. Identify the first issue and present to user per User Confirmation Flow (above).
+6. Upon user confirmation: mark issue as in-progress and remind user to run clarify-ticket.
+7. If no startable issues exist: output explanation per Output Contract.
+8. Emit output per contract.
 
 ## Final Output Enforcement
-Before emitting: validate output string.
-- If regex ^\d+$ matches → OK.
-- Else explanation path is assumed.
-
-Return ONLY the final output string.
+Before emitting: validate output string and flow.
+- If issue was selected and user confirmed: output confirmation message with next steps (clarify-ticket).
+- If issue was selected but user declined: recursively identify next issue and present again.
+- If no startable issues exist: output explanation per blocker discovery.
+- Never emit raw issue numbers anymore; always follow the User Confirmation Flow.
