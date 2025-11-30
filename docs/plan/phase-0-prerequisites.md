@@ -2,7 +2,7 @@
 
 **Goal**: Verify system meets all requirements before starting development
 
-**Estimated Total Effort**: 2-4 hours
+**Estimated Total Effort**: 3-5 hours (includes GitHub setup)
 **Can Start**: Immediately
 **Parallel Capacity**: Up to 6 agents (all tasks independent)
 
@@ -309,7 +309,7 @@ So that I can reproduce the environment or troubleshoot issues
 **Total Issues**: 8
 **Can Run in Parallel**: All 8 (with M0-6 starting after M0-1 and M0-2)
 **Critical Path**: M0-1, M0-3 → M1-1 (Laravel installation)
-**Estimated Milestone Completion**: 2-4 hours with 6 agents, 8-12 hours solo
+**Estimated Milestone Completion**: 3-5 hours with 6 agents, 12-16 hours solo
 
 **Parallel Execution Strategy**:
 - **Agent 1**: M0-1 (PHP) → M0-6 (Dev Environment)

@@ -2,9 +2,9 @@
 
 **Goal**: Initialize Laravel 12 project with proper dependencies and configuration
 
-**Estimated Total Effort**: 2-3 hours
+**Estimated Total Effort**: 4-5 hours (includes project-status.md GitHub Action)
 **Can Start**: After M0 complete
-**Parallel Capacity**: Limited (mostly sequential tasks)
+**Parallel Capacity**: Limited (mostly sequential tasks with some parallelization)
 
 ---
 
@@ -287,12 +287,53 @@ So that I can troubleshoot issues during development
 
 ---
 
+### M1-7: Set Up Project Status Dashboard GitHub Action
+**Type**: `type:setup`
+**Priority**: `P2`
+**Effort**: `effort:medium` (1-2 hours)
+**Depends On**: M1-3 (Git initialized)
+**Blocks**: None
+
+**Description**:
+Create GitHub Action that generates/updates `docs/project-status.md` whenever a PR is merged or an issue is closed.
+
+**Acceptance Criteria**:
+- [ ] Created `.github/workflows/update-project-status.yml`
+- [ ] Action triggers on `pull_request` (merged) and `issues` (closed)
+- [ ] Generates `docs/project-status.md` with:
+  - [ ] Milestone progress (% complete per milestone)
+  - [ ] Open/closed issue counts by phase
+  - [ ] Critical path status
+  - [ ] Velocity trends (last 7 days, 30 days)
+  - [ ] Burndown metrics from GitHub API
+- [ ] Commits generated file automatically to main
+- [ ] Created `docs/project-status.md` template
+
+**Files to Create**:
+- `.github/workflows/update-project-status.yml`
+- `docs/project-status.md` (template)
+
+**Testing**:
+```bash
+# Manually trigger workflow after PR merge
+gh workflow run update-project-status.yml
+```
+
+**Story**:
+```
+As a project manager
+I want automated project status tracking
+So that progress is visible without manual updates
+```
+
+---
+
 ## Summary
 
-**Total Issues**: 6
-**Can Run in Parallel**: Limited (M1-4, M1-5, M1-6 can run after M1-1)
+**Total Issues**: 7 (now includes M1-7 for project-status.md GitHub Action)
+**Can Run in Parallel**: Limited (M1-4, M1-5, M1-6, M1-7 can run after M1-1)
 **Critical Path**: M1-1 → M1-2 → M3-1
-**Estimated Milestone Completion**: 2-3 hours with 2-3 agents, 4-6 hours solo
+**Estimated Milestone Completion**: 4-5 hours with 3-4 agents, 8-12 hours solo
 
 **Parallel Execution Strategy**:
 - **Agent 1**: M1-1 (Laravel install) → M1-2 (Database config)
@@ -300,6 +341,7 @@ So that I can troubleshoot issues during development
 - **Agent 3**: Wait for M1-1, then M1-4 (App config)
 - **Agent 4**: Wait for M1-1, then M1-5 (Documentation)
 - **Agent 5**: Wait for M1-1, then M1-6 (Logging setup)
+- **Agent 6**: Wait for M1-3, then M1-7 (GitHub Action setup)
 
 **Dependency Chain**:
 ```

@@ -1,0 +1,109 @@
+✓ Parsed phase-0-prerequisites.md: 8 issues
+✓ Parsed phase-1-project-setup.md: 7 issues
+✓ Parsed phase-10-asset-pipeline.md: 4 issues
+✓ Parsed phase-11-seeding.md: 10 issues
+✓ Parsed phase-2-frontend-stack.md: 6 issues
+✓ Parsed phase-3-database-models.md: 19 issues
+✓ Parsed phase-4-search.md: 2 issues
+✓ Parsed phase-5-controllers-routing.md: 9 issues
+✓ Parsed phase-6-layout-components.md: 10 issues
+✓ Parsed phase-7-recipe-views.md: 5 issues
+✓ Parsed phase-8-cookbook-views.md: 4 issues
+✓ Parsed phase-9-interactivity.md: 6 issues
+
+📊 Total issues parsed: 90
+🚀 Creating GitHub issues...
+
+[1/90] Creating M0-1: Verify PHP Installation and Extensions ⚡... ✗ Failed
+[2/90] Creating M0-2: Verify Node.js and npm Installation ⚡... ✗ Failed
+[3/90] Creating M0-3: Verify Composer Installation ⚡... ✗ Failed
+[4/90] Creating M0-4: Set Up and Verify Database Server ⚡... ✗ Failed
+[5/90] Creating M0-5: Verify Git Installation and Configuration ⚡... ✗ Failed
+[6/90] Creating M0-6: Choose and Configure Development Environment ⚡... ✗ Failed
+[7/90] Creating M0-7: Configure Code Editor with Extensions ⚡... ✗ Failed
+[8/90] Creating M0-8: Document System Specifications... ✗ Failed
+[9/90] Creating M1-1: Create New Laravel 12 Project... ✗ Failed
+[10/90] Creating M1-2: Configure Database Connection... ✗ Failed
+[11/90] Creating M1-3: Initialize Git Repository... ✗ Failed
+[12/90] Creating M1-4: Configure Application Settings... ✗ Failed
+[13/90] Creating M1-5: Verify Project Structure and Create Documentation... ✗ Failed
+[14/90] Creating M1-6: Set Up Error Logging and Debugging... ✗ Failed
+[15/90] Creating M1-7: Set Up Project Status Dashboard GitHub Action... ✗ Failed
+[16/90] Creating M10-1: Optimize Production Build Configuration... ✗ Failed
+[17/90] Creating M10-2: Test Production Build... ✗ Failed
+[18/90] Creating M10-3: Configure Asset Versioning and Cache Busting... ✗ Failed
+[19/90] Creating M10-4: Document Build Process and Performance Metrics... ✗ Failed
+[20/90] Creating M11-1: Create ClassificationSeeder... ✗ Failed
+[21/90] Creating M11-2: Create SourceSeeder... ✗ Failed
+[22/90] Creating M11-3: Create MealSeeder... ✗ Failed
+[23/90] Creating M11-4: Create PreparationSeeder... ✗ Failed
+[24/90] Creating M11-5: Create CourseSeeder... ✗ Failed
+[25/90] Creating M11-6: Create RecipeFactory... ✗ Failed
+[26/90] Creating M11-7: Create CookbookFactory... ✗ Failed
+[27/90] Creating M11-8: Update DatabaseSeeder... ✗ Failed
+[28/90] Creating M11-9: Test Seeding Process... ✗ Failed
+[29/90] Creating M11-10: Create Seeding Documentation... ✗ Failed
+[30/90] Creating M2-1: Install and Configure Vite... ✗ Failed
+[31/90] Creating M2-2: Install and Configure Tailwind CSS 4... ✗ Failed
+[32/90] Creating M2-3: Configure Package Scripts and Test Build... ✗ Failed
+[33/90] Creating M2-4: Install and Configure Alpine.js 3... ✗ Failed
+[34/90] Creating M2-5: Update Base Layout with Vite Directives... ✗ Failed
+[35/90] Creating M2-6: Create Frontend Documentation... ✗ Failed
+[36/90] Creating M3-1: Create Classifications Table Migration... ✗ Failed
+[37/90] Creating M3-2: Create Sources Table Migration... ✗ Failed
+[38/90] Creating M3-3: Create Meals Table Migration... ✗ Failed
+[39/90] Creating M3-4: Create Preparations Table Migration... ✗ Failed
+[40/90] Creating M3-5: Create Courses Table Migration... ✗ Failed
+[41/90] Creating M3-6: Create Cookbooks Table Migration... ✗ Failed
+[42/90] Creating M3-8: Create Recipes Table Migration... ✗ Failed
+[43/90] Creating M3-9: Create Recipe-Meals Pivot Table Migration... ✗ Failed
+[44/90] Creating M3-10: Create Recipe-Preparations Pivot Table Migration... ✗ Failed
+[45/90] Creating M3-11: Create Recipe-Courses Pivot Table Migration... ✗ Failed
+[46/90] Creating M3-12: Create Cookbook-Recipes Pivot Table Migration... ✗ Failed
+[47/90] Creating M3-13: Create Database Indexes Migration... ✗ Failed
+[48/90] Creating M3-14: Create Recipe Model with Relationships... ✗ Failed
+[49/90] Creating M3-15: Create Classification Model... ✗ Failed
+[50/90] Creating M3-16: Create Source Model... ✗ Failed
+[51/90] Creating M3-17: Create Meal Model... ✗ Failed
+[52/90] Creating M3-18: Create Preparation Model... ✗ Failed
+[53/90] Creating M3-19: Create Course Model... ✗ Failed
+[54/90] Creating M3-20: Create Cookbook Model with Ordered Recipes... ✗ Failed
+[55/90] Creating M4-1: Add Search Scope to Recipe Model... ✗ Failed
+[56/90] Creating M4-2: Test Full-Text Search Performance (MySQL Only)... ✗ Failed
+[57/90] Creating M5-1: Create RecipeController with Index Method... ✗ Failed
+[58/90] Creating M5-2: Add RecipeController Show Method... ✗ Failed
+[59/90] Creating M5-3: Create CookbookController with Index... ✗ Failed
+[60/90] Creating M5-4: Add CookbookController Show Method... ✗ Failed
+[61/90] Creating M5-5: Create SearchRecipeRequest Form Request... ✗ Failed
+[62/90] Creating M5-6: Define Routes for Recipes... ✗ Failed
+[63/90] Creating M5-7: Define Routes for Cookbooks... ✗ Failed
+[64/90] Creating M5-8: Create Default Route Redirect... ✗ Failed
+[65/90] Creating M5-9: Write Controller Tests... ✗ Failed
+[66/90] Creating M6-1: Create Base App Layout... ✗ Failed
+[67/90] Creating M6-2: Create Button Component... ✗ Failed
+[68/90] Creating M6-3: Create Input Component... ✗ Failed
+[69/90] Creating M6-4: Create Select Component... ✗ Failed
+[70/90] Creating M6-5: Create Card Component... ✗ Failed
+[71/90] Creating M6-6: Create Recipe Card Component... ✗ Failed
+[72/90] Creating M6-7: Create Pagination Component... ✗ Failed
+[73/90] Creating M6-8: Create Sort Controls Component... ✗ Failed
+[74/90] Creating M6-9: Create Navigation Component... ✗ Failed
+[75/90] Creating M6-10: Document Component Library... ✗ Failed
+[76/90] Creating M7-1: Create Recipe Index View... ✗ Failed
+[77/90] Creating M7-2: Create Recipe Show View... ✗ Failed
+[78/90] Creating M7-3: Style Recipe Index with Tailwind... ✗ Failed
+[79/90] Creating M7-4: Style Recipe Show with Tailwind... ✗ Failed
+[80/90] Creating M7-5: Test Recipe Views End-to-End... ✗ Failed
+[81/90] Creating M8-1: Create Cookbook Index View... ✗ Failed
+[82/90] Creating M8-2: Create Cookbook Show View... ✗ Failed
+[83/90] Creating M8-3: Style Cookbook Views... ✗ Failed
+[84/90] Creating M8-4: Test Cookbook Views... ✗ Failed
+[85/90] Creating M9-1: Add Mobile Menu Toggle... ✗ Failed
+[86/90] Creating M9-2: Add Sort Direction Toggle... ✗ Failed
+[87/90] Creating M9-3: Add Display Count Selector Enhancement... ✗ Failed
+[88/90] Creating M9-4: Add Search Form Enhancement... ✗ Failed
+[89/90] Creating M9-5: Add Hover Effects to Cards... ✗ Failed
+[90/90] Creating M9-6: Test All Interactive Features... ✗ Failed
+
+✅ Created 0/90 issues
+💾 Issue mapping saved to scripts/issue-mapping.json
