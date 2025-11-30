@@ -98,20 +98,22 @@ tests/
 
 ## Reusable Artifacts from Legacy App
 
-**Location**: `/home/doug/dev/laravel-recipes-update/`
+**GitHub Repository**: [laravel-recipes-update](https://github.com/dougis-org/laravel-recipes-update)
+
+The legacy Laravel 5.2 application contains proven implementations that can be adapted for the modern Laravel 12 application. All artifacts are version-controlled and publicly accessible.
 
 ### Complete List of Reusable Items
 
-| Artifact | Location | Reusable As-Is | Notes |
+| Artifact | GitHub Path | Reusable As-Is | Notes |
 |----------|----------|---|---|
-| **Migrations (19 total)** | `database/migrations/` | ~80% | Modernize syntax; consolidate foreign keys; update data types |
-| **Models (7 core)** | `app/Models/` | ~70% | Remove Eloquence trait; update relationship syntax; add query scopes |
-| **Controllers (2)** | `app/Http/Controllers/` | ~60% | Update for modern Laravel; preserve sorting/search logic; add eager loading |
-| **Views (recipe/cookbook)** | `resources/views/recipe/`, `resources/views/cookbook/` | ~40% | Layout/logic reusable; completely restyle with Tailwind CSS |
-| **Search Logic** | RecipeController.php | ~50% | Adapt from `search()` method; replace Eloquence with native scopes |
-| **Pagination/Sort Logic** | RecipeController.php | ~90% | Query parameter handling logic directly applicable |
-| **Cookbook Recipe Ordering** | Cookbook.php model | ~95% | Already uses correct join approach; minimal updates needed |
-| **Data Schema** | Existing migrations | 100% | Schema proven and correct; just modernize syntax |
+| **Migrations (19 total)** | [`database/migrations/`](https://github.com/dougis-org/laravel-recipes-update/tree/main/database/migrations) | ~80% | Modernize syntax; consolidate foreign keys; update data types |
+| **Models (7 core)** | [`app/Models/`](https://github.com/dougis-org/laravel-recipes-update/tree/main/app/Models) | ~70% | Remove Eloquence trait; update relationship syntax; add query scopes |
+| **Controllers (2)** | [`app/Http/Controllers/`](https://github.com/dougis-org/laravel-recipes-update/tree/main/app/Http/Controllers) | ~60% | Update for modern Laravel; preserve sorting/search logic; add eager loading |
+| **Views (recipe/cookbook)** | [`resources/views/recipe/`](https://github.com/dougis-org/laravel-recipes-update/tree/main/resources/views/recipe), [`resources/views/cookbook/`](https://github.com/dougis-org/laravel-recipes-update/tree/main/resources/views/cookbook) | ~40% | Layout/logic reusable; completely restyle with Tailwind CSS |
+| **Search Logic** | [RecipeController.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Http/Controllers/RecipeController.php) | ~50% | Adapt from `search()` method; replace Eloquence with native scopes |
+| **Pagination/Sort Logic** | [RecipeController.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Http/Controllers/RecipeController.php) | ~90% | Query parameter handling logic directly applicable |
+| **Cookbook Recipe Ordering** | [Cookbook.php model](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Models/Cookbook.php) | ~95% | Already uses correct join approach; minimal updates needed |
+| **Data Schema** | [migrations](https://github.com/dougis-org/laravel-recipes-update/tree/main/database/migrations) | 100% | Schema proven and correct; just modernize syntax |
 
 ### What to Build From Scratch
 - **Frontend Components**: Tailwind CSS 4 components (no Bootstrap equivalent in legacy app)
@@ -235,8 +237,8 @@ tests/
 **Goals**: Create database schema and Eloquent models reflecting the data model
 
 ### Base Artifacts Available
-- **Existing Migrations**: Available in `/home/doug/dev/laravel-recipes-update/database/migrations/` - These migrations can be largely reused or adapted (see details below for Laravel 12 updates needed)
-- **Existing Models**: Available in `/home/doug/dev/laravel-recipes-update/app/Models/` - Provide good foundation, require modernization (remove Eloquence trait, update relationship syntax)
+- **Existing Migrations**: Available at [`database/migrations/`](https://github.com/dougis-org/laravel-recipes-update/tree/main/database/migrations) in the legacy repo - These migrations can be largely reused or adapted (see details below for Laravel 12 updates needed)
+- **Existing Models**: Available at [`app/Models/`](https://github.com/dougis-org/laravel-recipes-update/tree/main/app/Models) in the legacy repo - Provide good foundation, require modernization (remove Eloquence trait, update relationship syntax)
 - **Schema**: Legacy app has proven schema that works; we'll adapt it to modern Laravel conventions
 
 ### Migration Adaptation Strategy
@@ -256,50 +258,50 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
     Tables to create (adapted from legacy app):
     
     a. **2024_01_01_000001_create_classifications_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_classifications_table.php`
+       - Source: [2015_12_21_233545_create_classifications_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_classifications_table.php)
        - Modernize: Use `$table->id()`, `$table->string('name')->unique()`, `$table->timestamps()`
     
     b. **2024_01_01_000002_create_sources_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_sources_table.php`
+       - Source: [2015_12_21_233545_create_sources_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_sources_table.php)
        - Modernize: Use modern Blueprint methods
     
     c. **2024_01_01_000003_create_recipes_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_recipes_table.php`
+       - Source: [2015_12_21_233545_create_recipes_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_recipes_table.php)
        - Update: Change `string` columns to `text` where appropriate (ingredients, instructions, notes)
        - Update: Change nutrition columns from string to decimal/float
        - Update: Add inline foreign key definitions for classification_id, source_id
        - Key columns: id, name (unique), ingredients (text), instructions (text), notes (text, nullable), servings (int, nullable), classification_id, source_id, date_added (dateTime), calories (decimal), fat (decimal), cholesterol (decimal), sodium (decimal), protein (decimal), marked (boolean), timestamps
     
     d. **2024_01_01_000004_create_meals_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_meals_table.php`
+       - Source: [2015_12_21_233545_create_meals_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_meals_table.php)
        - Modernize: Use modern Blueprint methods
     
     e. **2024_01_01_000005_create_preparations_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_preparations_table.php`
+       - Source: [2015_12_21_233545_create_preparations_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_preparations_table.php)
        - Modernize: Use modern Blueprint methods
     
     f. **2024_01_01_000006_create_courses_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_courses_table.php`
+       - Source: [2015_12_21_233545_create_courses_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_courses_table.php)
        - Modernize: Use modern Blueprint methods
     
     g. **2024_01_01_000007_create_cookbooks_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_cookbooks_table.php`
+       - Source: [2015_12_21_233545_create_cookbooks_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_cookbooks_table.php)
        - Modernize: Use modern Blueprint methods
     
     h. **2024_01_01_000008_create_recipe_meals_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_recipe_meals_table.php`
+       - Source: [2015_12_21_233545_create_recipe_meals_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_recipe_meals_table.php)
        - Update: Add inline foreign keys with cascading deletes
     
     i. **2024_01_01_000009_create_recipe_preparations_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_recipe_preparations_table.php`
+       - Source: [2015_12_21_233545_create_recipe_preparations_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_recipe_preparations_table.php)
        - Update: Add inline foreign keys with cascading deletes
     
     j. **2024_01_01_000010_create_recipe_courses_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_recipe_courses_table.php`
+       - Source: [2015_12_21_233545_create_recipe_courses_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_recipe_courses_table.php)
        - Update: Add inline foreign keys with cascading deletes
     
     k. **2024_01_01_000011_create_cookbook_recipes_table.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/database/migrations/2015_12_21_233545_create_cookbook_recipes_table.php`
+       - Source: [2015_12_21_233545_create_cookbook_recipes_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_cookbook_recipes_table.php)
        - Update: Add inline foreign keys with cascading deletes
 
     Command: `php artisan migrate`
@@ -313,11 +315,11 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
     - Ensure all required foreign keys and constraints are defined
 
 12. **Create/Modernize Eloquent Models** (in `app/Models/`)
-    - **Source**: Adapt from `/home/doug/dev/laravel-recipes-update/app/Models/` (all 7 models exist)
+    - **Source**: Adapt from [legacy app Models](https://github.com/dougis-org/laravel-recipes-update/tree/main/app/Models) (all 7 models exist)
     - **Approach**: Remove Eloquence trait, modernize relationship syntax, adapt to Laravel 12 conventions
     
     a. **Recipe.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/app/Models/Recipe.php`
+       - Source: [Recipe.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Models/Recipe.php)
        - Remove: `Sofa\Eloquence\Eloquence` trait
        - Update relationships: Change `getSource()` → `source()`, `getClassification()` → `classification()`
        - Use modern syntax: `$this->belongsTo(Source::class)` instead of `$this->hasOne('App\Models\Source')`
@@ -327,32 +329,32 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
        - Relationships: source (belongsTo), classification (belongsTo), meals (belongsToMany), preparations (belongsToMany), courses (belongsToMany), cookbooks (belongsToMany)
     
     b. **Classification.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/app/Models/Classification.php`
+       - Source: [Classification.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Models/Classification.php)
        - Remove: `getName()` and `setName()` methods (Laravel accessors/mutators if needed)
        - Keep: Simple model with timestamps and fillable
        - Add relationship: `recipes()` (hasMany)
     
     c. **Source.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/app/Models/Source.php` (if exists, otherwise create)
+       - Source: [Source.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Models/Source.php) (if exists, otherwise create)
        - Create: Similar to Classification with `recipes()` hasMany relationship
        - Keep: Simple model with timestamps and fillable
     
     d. **Cookbook.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/app/Models/Cookbook.php`
+       - Source: [Cookbook.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Models/Cookbook.php)
        - Remove: `getName()` and `setName()` methods
        - Update: Keep recipes relationship with leftJoin and orderBy for classification.name, then recipes.name
        - Already uses modern belongsToMany syntax (good pattern to follow)
     
     e. **Meal.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/app/Models/Meal.php` (if exists, otherwise create)
+       - Source: [Meal.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Models/Meal.php) (if exists, otherwise create)
        - Create: Simple model with timestamps, fillable, and `recipes()` belongsToMany relationship
     
     f. **Preparation.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/app/Models/Preparation.php` (if exists, otherwise create)
+       - Source: [Preparation.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Models/Preparation.php) (if exists, otherwise create)
        - Create: Simple model with timestamps, fillable, and `recipes()` belongsToMany relationship
     
     g. **Course.php**
-       - Source: `/home/doug/dev/laravel-recipes-update/app/Models/Course.php` (if exists, otherwise create)
+       - Source: [Course.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Models/Course.php) (if exists, otherwise create)
        - Create: Simple model with timestamps, fillable, and `recipes()` belongsToMany relationship
 
 **Success Criteria**:
