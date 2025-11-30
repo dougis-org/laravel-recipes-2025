@@ -252,7 +252,7 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
 ### Tasks
 
 11. **Create/Adapt Migrations** (in order by timestamp)
-    - **Source**: Adapt from `/home/doug/dev/laravel-recipes-update/database/migrations/`
+    - **Source**: Adapt from [laravel-recipes-update/database/migrations/](https://github.com/dougis-org/laravel-recipes-update/tree/main/database/migrations)
     - **Approach**: Modernize existing migrations rather than rebuild from scratch
     
     Tables to create (adapted from legacy app):
@@ -400,14 +400,14 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
 **Goals**: Implement controllers and routes for recipe and cookbook listing
 
 ### Base Artifacts Available
-- **RecipeController**: Available at `/home/doug/dev/laravel-recipes-update/app/Http/Controllers/RecipeController.php` - Handles all sorting, searching, and pagination logic
-- **CookbookController**: Available at `/home/doug/dev/laravel-recipes-update/app/Http/Controllers/CookbookController.php` - Handles listing and detail views
+- **RecipeController**: Available at [github.com/dougis-org/laravel-recipes-update/app/Http/Controllers/RecipeController.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Http/Controllers/RecipeController.php) - Handles all sorting, searching, and pagination logic
+- **CookbookController**: Available at [github.com/dougis-org/laravel-recipes-update/app/Http/Controllers/CookbookController.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Http/Controllers/CookbookController.php) - Handles listing and detail views
 - **Routing**: Legacy app uses resource-based routing in modularized `Http/Routes/` files
 
 ### Tasks
 
 15. **Adapt RecipeController**
-    - Source: `/home/doug/dev/laravel-recipes-update/app/Http/Controllers/RecipeController.php`
+    - Source: [github.com/dougis-org/laravel-recipes-update/app/Http/Controllers/RecipeController.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Http/Controllers/RecipeController.php)
     - Update: Modernize for Laravel 12 while preserving functionality
     - Key logic to preserve:
       - Query parameters: `sortField` (name, date_added), `sortOrder` (asc, desc), `displayCount` (20, 30, all), `search` query
@@ -421,7 +421,7 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
       - `show($id)`: Show recipe details with relationships
 
 16. **Adapt CookbookController**
-    - Source: `/home/doug/dev/laravel-recipes-update/app/Http/Controllers/CookbookController.php`
+    - Source: [github.com/dougis-org/laravel-recipes-update/app/Http/Controllers/CookbookController.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/app/Http/Controllers/CookbookController.php)
     - Update: Add eager loading and modernize for Laravel 12
     - Key logic to preserve:
       - Index: Show all cookbooks with recipe count
@@ -520,14 +520,14 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
 **Goals**: Implement recipe listing and detail views using modern Tailwind CSS
 
 ### Base Artifacts Available
-- **Recipe Index View**: Available at `/home/doug/dev/laravel-recipes-update/resources/views/recipe/index.blade.php` - Shows recipe grid with search/sort/pagination
-- **Recipe Show View**: Available at `/home/doug/dev/laravel-recipes-update/resources/views/recipe/show.blade.php` - Shows recipe detail
+- **Recipe Index View**: Available at [github.com/dougis-org/laravel-recipes-update/resources/views/recipe/index.blade.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/resources/views/recipe/index.blade.php) - Shows recipe grid with search/sort/pagination
+- **Recipe Show View**: Available at [github.com/dougis-org/laravel-recipes-update/resources/views/recipe/show.blade.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/resources/views/recipe/show.blade.php) - Shows recipe detail
 - **Legacy Styling**: Uses Foundation Framework (to be replaced with Tailwind CSS 4)
 
 ### Tasks
 
 24. **Create Modern Recipe Index View** (`resources/views/recipes/index.blade.php`)
-    - Source layout: `/home/doug/dev/laravel-recipes-update/resources/views/recipe/index.blade.php`
+    - Source layout: [github.com/dougis-org/laravel-recipes-update/resources/views/recipe/index.blade.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/resources/views/recipe/index.blade.php)
     - Preserve functionality: Search form, sort controls, display count selector, pagination
     - Modernize styling: Replace Foundation grid (`.large-3 .medium-6 .small-12`) with Tailwind responsive classes
     - Layout:
@@ -539,7 +539,7 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
     - Use Blade components created in Phase 6
 
 25. **Create Modern Recipe Show View** (`resources/views/recipes/show.blade.php`)
-    - Source layout: `/home/doug/dev/laravel-recipes-update/resources/views/recipe/show.blade.php`
+    - Source layout: [github.com/dougis-org/laravel-recipes-update/resources/views/recipe/show.blade.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/resources/views/recipe/show.blade.php)
     - Preserve functionality: Display all recipe details and relationships
     - Modernize styling: Replace Foundation styling with Tailwind CSS
     - Display recipe details:
@@ -581,14 +581,14 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
 **Goals**: Implement cookbook listing and detail views using modern Tailwind CSS
 
 ### Base Artifacts Available
-- **Cookbook Index View**: Available at `/home/doug/dev/laravel-recipes-update/resources/views/cookbook/index.blade.php` - Shows cookbook list
-- **Cookbook Show View**: Available at `/home/doug/dev/laravel-recipes-update/resources/views/cookbook/show.blade.php` - Shows cookbook detail with recipes
+- **Cookbook Index View**: Available at [github.com/dougis-org/laravel-recipes-update/resources/views/cookbook/index.blade.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/resources/views/cookbook/index.blade.php) - Shows cookbook list
+- **Cookbook Show View**: Available at [github.com/dougis-org/laravel-recipes-update/resources/views/cookbook/show.blade.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/resources/views/cookbook/show.blade.php) - Shows cookbook detail with recipes
 - **Legacy Styling**: Uses Foundation Framework (to be replaced with Tailwind CSS 4)
 
 ### Tasks
 
 28. **Create Modern Cookbook Index View** (`resources/views/cookbooks/index.blade.php`)
-    - Source layout: `/home/doug/dev/laravel-recipes-update/resources/views/cookbook/index.blade.php`
+    - Source layout: [github.com/dougis-org/laravel-recipes-update/resources/views/cookbook/index.blade.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/resources/views/cookbook/index.blade.php)
     - Preserve functionality: Display all cookbooks with recipe counts
     - Modernize styling: Replace Foundation styling with Tailwind CSS
     - Display:
@@ -597,7 +597,7 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
       - Pagination if many cookbooks
 
 29. **Create Modern Cookbook Show View** (`resources/views/cookbooks/show.blade.php`)
-    - Source layout: `/home/doug/dev/laravel-recipes-update/resources/views/cookbook/show.blade.php`
+    - Source layout: [github.com/dougis-org/laravel-recipes-update/resources/views/cookbook/show.blade.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/resources/views/cookbook/show.blade.php)
     - Preserve functionality: Display cookbook detail with recipes ordered by classification, then name
     - Modernize styling: Replace Foundation styling with Tailwind CSS
     - Display:
@@ -1026,11 +1026,11 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
 
 ## Legacy Artifact Adaptation Guide
 
-This section provides detailed guidance on adapting artifacts from `/home/doug/dev/laravel-recipes-update/` for use in the modern Laravel 12 application.
+This section provides detailed guidance on adapting artifacts from [github.com/dougis-org/laravel-recipes-update](https://github.com/dougis-org/laravel-recipes-update) for use in the modern Laravel 12 application.
 
 ### Migrations Adaptation Strategy
 
-**Source**: `/home/doug/dev/laravel-recipes-update/database/migrations/`
+**Source**: [laravel-recipes-update/database/migrations/](https://github.com/dougis-org/laravel-recipes-update/tree/main/database/migrations)
 
 **Key Differences Between Laravel 5.2 and Laravel 12 Migration Syntax**:
 
@@ -1105,7 +1105,7 @@ return new class extends Migration {
 
 ### Models Adaptation Strategy
 
-**Source**: `/home/doug/dev/laravel-recipes-update/app/Models/`
+**Source**: [laravel-recipes-update/app/Models/](https://github.com/dougis-org/laravel-recipes-update/tree/main/app/Models)
 
 **Key Differences**:
 
@@ -1178,7 +1178,7 @@ public function scopeSearch($query, string $term) {
 
 ### Controllers Adaptation Strategy
 
-**Source**: `/home/doug/dev/laravel-recipes-update/app/Http/Controllers/`
+**Source**: [laravel-recipes-update/app/Http/Controllers/](https://github.com/dougis-org/laravel-recipes-update/tree/main/app/Http/Controllers)
 
 **RecipeController Changes**:
 
@@ -1215,7 +1215,7 @@ $recipes = Recipe::query()
 
 ### Views Adaptation Strategy
 
-**Source**: `/home/doug/dev/laravel-recipes-update/resources/views/`
+**Source**: [laravel-recipes-update/resources/views/](https://github.com/dougis-org/laravel-recipes-update/tree/main/resources/views)
 
 **Layout Structure (to preserve functionality)**:
 - Recipe index displays grid of recipes with search, sort, pagination

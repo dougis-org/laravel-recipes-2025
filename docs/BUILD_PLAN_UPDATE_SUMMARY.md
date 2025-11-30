@@ -1,7 +1,7 @@
 # BUILD_PLAN.md Update Summary
 
 ## Overview
-Updated `/home/doug/dev/laravel-recipes-2025/docs/BUILD_PLAN.md` (1,396 lines) to reference and leverage existing artifacts from the legacy Laravel 5.2 application at `/home/doug/dev/laravel-recipes-update/` wherever practical.
+Updated `/home/doug/dev/laravel-recipes-2025/docs/BUILD_PLAN.md` (1,396 lines) to reference and leverage existing artifacts from the legacy Laravel 5.2 application at [github.com/dougis-org/laravel-recipes-update](https://github.com/dougis-org/laravel-recipes-update) wherever practical.
 
 ## Key Updates
 
@@ -83,19 +83,19 @@ Comprehensive guide showing:
 
 The plan now explicitly references:
 
-**Migrations**: `/home/doug/dev/laravel-recipes-update/database/migrations/`
+**Migrations**: [laravel-recipes-update/database/migrations/](https://github.com/dougis-org/laravel-recipes-update/tree/main/database/migrations)
 - 19 existing migrations with proven schema
 
-**Models**: `/home/doug/dev/laravel-recipes-update/app/Models/`
+**Models**: [laravel-recipes-update/app/Models/](https://github.com/dougis-org/laravel-recipes-update/tree/main/app/Models)
 - Recipe.php - Search and relationship patterns
 - Cookbook.php - Recipe ordering logic
 - Classification.php, Source.php, Meal.php, Preparation.php, Course.php
 
-**Controllers**: `/home/doug/dev/laravel-recipes-update/app/Http/Controllers/`
+**Controllers**: [laravel-recipes-update/app/Http/Controllers/](https://github.com/dougis-org/laravel-recipes-update/tree/main/app/Http/Controllers)
 - RecipeController.php - Sorting, search, pagination logic
 - CookbookController.php - Listing and detail patterns
 
-**Views**: `/home/doug/dev/laravel-recipes-update/resources/views/`
+**Views**: [laravel-recipes-update/resources/views/](https://github.com/dougis-org/laravel-recipes-update/tree/main/resources/views)
 - recipe/index.blade.php - Recipe listing layout
 - recipe/show.blade.php - Recipe detail layout
 - cookbook/index.blade.php - Cookbook listing layout
