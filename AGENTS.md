@@ -18,6 +18,14 @@ For human developer information, see `/docs/CONTRIBUTING.md`.
 
 **Application Architecture**: See `/docs/design/DATA.md` for comprehensive data model, entity relationships, database structure, and migration patterns.
 
+### Development Environment Notes
+
+**Windows with WSL**: When working on a Windows machine using WSL (Windows Subsystem for Linux), file paths may appear with the WSL prefix. The canonical project path is:
+- **WSL Path**: `\\wsl.localhost\Ubuntu\home\doug\dev\laravel-recipes-2025`
+- **Linux Path**: `/home/doug/dev/laravel-recipes-2025`
+
+Both refer to the same repository. Use the appropriate format for your development environment.
+
 ## AI Agent Guidelines
 
 ### When Implementing Features
