@@ -243,10 +243,21 @@ Extract test plan from Section 8 of plan comment. Create tests following this or
    - File: `tests/Regression/{{Feature}}Test.php`
    - Ensure tests FAIL initially
 
-1.5 **Verify all new tests FAIL**:
+1.5 **Test naming conventions**:
+   - Unit tests: `test_{{feature}}_{{scenario}}_{{expected_outcome}}`
+     - Example: `test_recipe_filter_by_classification_returns_matching_recipes`
+   - Integration tests: `test_{{feature}}_end_to_end_{{scenario}}`
+     - Example: `test_recipe_creation_end_to_end_with_database`
+   - Edge/Error tests: `test_{{feature}}_{{boundary_or_error}}`
+     - Example: `test_recipe_name_validation_rejects_empty_string`
+   - Regression tests: `test_regression_{{issue_number}}_{{description}}`
+     - Example: `test_regression_gh_123_duplicate_cookbook_recipes`
+
+1.6 **Verify all new tests FAIL**:
    - Run: `php artisan test` (or project test command)
    - All new tests must fail (proves test validity)
-   - Document test count: `{{UNIT_COUNT}}` unit, `{{INTEGRATION_COUNT}}` integration, `{{CONTRACT_COUNT}}` contract
+   - If any test passes unexpectedly: test is too weak, strengthen it
+   - Document test count: `{{UNIT_COUNT}}` unit, `{{INTEGRATION_COUNT}}` integration, `{{CONTRACT_COUNT}}` contract, `{{REGRESSION_COUNT}}` regression
 
 ---
 
@@ -289,11 +300,30 @@ Follow implementation order from Section 5. For each step:
    - Fix implementation until all tests pass
    - Document iterations
 
-2.9 **Refactor pass** (no behavior change)
-   - Extract common logic
-   - Improve naming, reduce duplication
-   - Simplify conditionals
-   - Ensure tests still pass after refactor
+2.9 **Observability implementation**:
+   - Add logging for key business events (creation, deletion, major state changes)
+     - File: Integrate into service layer; use `Log::info()` or `Log::warning()`
+     - Pattern: `Log::info('Feature event', ['entity_id' => $id, 'action' => 'created'])`
+   - Add structured logging for error conditions (validation failures, external API calls)
+     - Include context: user ID, entity ID, error details
+   - Add metrics/counters if observability framework configured (e.g., StatsD, Prometheus)
+     - Example: count API calls, track success/failure rates
+   - Add traces/spans if APM configured (e.g., New Relic, DataDog)
+     - Instrument service layer methods
+   - Verify logs are queryable in production environment
+
+2.10 **Refactor pass** (no behavior change):
+   - Extract common logic into reusable methods or services
+   - Improve variable and method naming for clarity
+   - Reduce duplication (DRY principle)
+   - Simplify conditionals and nested logic
+   - Extract magic numbers to named constants
+   - Examples:
+     - Extract 3-line validation block → private method `validateInput()`
+     - Extract repeated query → repository method
+     - Extract conditional logic → private method with clear name
+     - Replace deeply nested if/else → guard clauses or early returns
+   - Ensure ALL tests still pass after refactor (no behavior change)
 
 ---
 
@@ -324,14 +354,32 @@ Follow implementation order from Section 5. For each step:
 | Gate | Command / Action | Pass Criteria |
 |------|------------------|---------------|
 | Build & Unit | `php artisan test` | All tests green |
+| Test Coverage | Verify coverage threshold met | Current >= baseline (from `phpunit.xml`) |
 | Feature Flags | Review flag defaults | All new flags default OFF or justified |
 | Code Style | Project linter (if configured) | No blocking issues |
 | Type Safety | Static analysis (if configured) | No errors |
 | Schema Drift | Check migrations are backward-compatible | No regressions |
 | Security/Input | Review validation & authorization | No secrets, safe validation |
-| Test Coverage | Compare to baseline (if tracked) | No unjustified drop |
+| Observability | Verify logging/metrics implemented | Key events logged, errors captured |
 
-Failures → fix root cause; never dilute or skip tests.
+### Coverage Baseline Tracking
+
+**Establishing a baseline** (first feature with coverage tracking):
+   - Check `phpunit.xml` for `<coverage>` section with `processUncoveredFiles` and minimum threshold
+   - If no threshold defined: establish one (recommend 80% minimum for new code)
+   - Run: `php artisan test --coverage` to generate coverage report
+   - Record baseline percentage
+
+**During implementation**:
+   - After Phase 2 (GREEN), run: `php artisan test --coverage`
+   - Compare new coverage to baseline
+   - If coverage dropped: add tests to restore coverage
+   - If coverage improved: document in PR
+
+**Coverage drop recovery**:
+   - Identify uncovered lines: review coverage report
+   - Add tests for those code paths
+   - Re-run coverage check until baseline is met or exceeded
 
 ---
 
@@ -359,8 +407,8 @@ Failures → fix root cause; never dilute or skip tests.
 6.1 **Stage changes**:
    - `git add .`
 
-6.2 **Commit with conventional format** (sign commits):
-   - `git commit -S -m "feat({{scope}}): #{{ISSUE_NUMBER}} {{concise summary}}"`
+6.2 **Commit with conventional format**:
+   - `git commit -m "feat({{scope}}): #{{ISSUE_NUMBER}} {{concise summary}}"`
    - Use `fix`, `chore`, `refactor`, `docs`, `test` as appropriate
    - Reference issue number in commit message
 
@@ -419,12 +467,14 @@ Key Metrics:
 | Issue | Action | Recovery |
 |-------|--------|----------|
 | Missing plan section | STOP; request fix | Re-run plan-ticket or analyze-plan |
-| All tests pass in RED | Strengthen tests | Make tests more specific, rewrite RED tests |
+| All tests pass in RED | Strengthen tests | Make tests more specific, rewrite RED tests to be more restrictive |
+| Test fails for wrong reason | Rewrite test | Test must fail for the exact reason intended (RED phase validation) |
 | Build fail | Fix latest change or revert | Debug error, fix, retest |
-| Test coverage drop | Justify or add tests | Add tests to restore coverage |
-| Feature flag not OFF | Fix default | Update config/features.php or test |
+| Test coverage below baseline | Add tests | Write tests for uncovered code paths until threshold met |
+| Feature flag not OFF | Fix default | Update config/features.php or test fixture default |
 | Sub-issue analysis has CRITICAL | STOP sub-issue work | Re-run analyze-plan with sub-issue, fix plan |
-| Git merge conflict | Resolve | Use git tools, re-run tests after resolve |
+| Git merge conflict | Resolve | Use git tools, re-run all tests after resolve |
+| Logging not present | Add logging | Add `Log::info()`, `Log::warning()` for key events |
 | PR feedback | Iterate | Make changes, commit, push, wait for re-review |
 
 After 2 failed remediation attempts on same issue, escalate to user with full context.
@@ -444,7 +494,7 @@ After 2 failed remediation attempts on same issue, escalate to user with full co
 - [ ] All ACs verified
 - [ ] Docs & artifacts updated
 - [ ] Quality gates all passing
-- [ ] Conventional commits signed
+- [ ] Conventional commits with issue references
 - [ ] PR created with full context
 - [ ] CODEOWNERS reviewers requested
 - [ ] Issue linked to PR
@@ -471,7 +521,6 @@ After 2 failed remediation attempts on same issue, escalate to user with full co
 - **Convention over config**: Follow CONTRIBUTING.md; override plan if needed
 - **Test all new logic**: No production code without tests
 - **Feature flags by default**: New behavior behind flag unless explicitly low-risk
-- **Signed commits**: All commits must be cryptographically signed (`-S` flag)
 - **Decomposed workflow**: For sub-issues, run full clarify → plan → analyze → work cycle per sub-issue
 
 ---
