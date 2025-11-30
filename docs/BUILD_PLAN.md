@@ -15,13 +15,54 @@ This plan details building a modern Laravel 12 Recipe Manager application from s
 
 ## Architecture Overview
 
-### Tech Stack (Latest Stable)
-- **Backend**: Laravel 12.x, PHP 8.5+, Eloquent ORM
-- **Frontend**: Tailwind CSS 4+, Alpine.js 3.x, Blade components
-- **Build Tool**: Vite (modern, fast asset compilation)
-- **Database**: MySQL/PostgreSQL with timestamped migrations
-- **Testing**: PHPUnit 10+ or Pest 2.0+
-- **Search**: Laravel Scout with database driver or native Eloquent scopes
+### Tech Stack & Version Requirements
+
+**Required Versions** (Locked for consistency):
+- **PHP**: `>=8.5.0` (latest stable with type safety, attributes, match expressions)
+- **Laravel**: `^12.0` (latest major version)
+- **Node.js**: `>=25.0.0` (for Vite and build tools)
+- **Composer**: `^2.7` (PHP dependency manager)
+
+**Backend Dependencies**:
+- **Laravel Framework**: `^12.0`
+- **Eloquent ORM**: Included with Laravel
+- **Guzzle HTTP**: `^7.8` (HTTP client)
+
+**Frontend Dependencies**:
+- **Tailwind CSS**: `^4.0.0` (utility-first CSS framework)
+- **Alpine.js**: `^3.14.0` (lightweight reactive framework)
+- **PostCSS**: `^8.4` (CSS processing)
+- **Autoprefixer**: `^10.4` (vendor prefix automation)
+
+**Build Tools**:
+- **Vite**: `^5.0` (modern, fast asset compilation with HMR)
+- **Laravel Vite Plugin**: `^1.0`
+
+**Database**:
+- **MySQL**: `>=8.0` OR **PostgreSQL**: `>=14.0`
+- **Database Driver**: `pdo_mysql` or `pdo_pgsql`
+
+**Testing**:
+- **Pest**: `^2.34` (recommended - modern syntax) OR **PHPUnit**: `^10.5`
+- **Laravel Dusk**: `^7.0` (optional - browser testing)
+
+**Development Tools**:
+- **Laravel Pint**: `^1.13` (code style fixer - PSR-12)
+- **PHPStan**: `^1.10` (optional - static analysis)
+- **Laravel Debugbar**: `^3.9` (optional - query debugging)
+
+**Required PHP Extensions**:
+- `pdo`, `pdo_mysql` (or `pdo_pgsql`)
+- `mbstring`, `xml`, `bcmath`, `curl`
+- `tokenizer`, `json`, `openssl`
+- `fileinfo`, `gd` (for image handling)
+
+**Browser Support**:
+- Chrome/Edge: Last 2 versions
+- Firefox: Last 2 versions
+- Safari: Last 2 versions
+- Mobile Safari (iOS): Last 2 versions
+- Chrome Mobile (Android): Last 2 versions
 
 ### Project Structure
 ```
@@ -124,7 +165,79 @@ The legacy Laravel 5.2 application contains proven implementations that can be a
 
 ---
 
+## Phase 0: Prerequisites & System Requirements
 
+**Goals**: Verify system meets all requirements before starting development
+
+### Tasks
+
+1. **Verify PHP Version and Extensions**
+   - Check PHP version: `php -v` (must be >=8.5.0)
+   - Check installed extensions: `php -m`
+   - Required extensions: pdo, pdo_mysql, mbstring, xml, bcmath, curl, tokenizer, json, openssl, fileinfo, gd
+   - Install missing extensions:
+     - Ubuntu/Debian: `sudo apt install php8.5-{ext-name}`
+     - macOS: `brew install php@8.5` (includes most extensions)
+     - Windows: Enable in `php.ini`
+
+2. **Verify Node.js and npm**
+   - Check Node version: `node -v` (must be >=25.0.0)
+   - Check npm version: `npm -v` (should be >=10.0.0)
+   - Install/update if needed:
+     - Using nvm: `nvm install 25 && nvm use 25`
+     - macOS: `brew install node@25`
+     - Windows: Download from nodejs.org
+
+3. **Verify Composer**
+   - Check Composer version: `composer -V` (must be >=2.7)
+   - Update if needed: `composer self-update`
+   - Install if missing: https://getcomposer.org/download/
+
+4. **Verify Database**
+   - MySQL: `mysql --version` (must be >=8.0)
+   - OR PostgreSQL: `psql --version` (must be >=14.0)
+   - Verify database server is running
+   - Create database: `CREATE DATABASE laravel_recipes CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
+   - Create database user with appropriate permissions
+
+5. **Install Git**
+   - Check Git version: `git --version` (>=2.30 recommended)
+   - Configure Git identity:
+     ```bash
+     git config --global user.name "Your Name"
+     git config --global user.email "your.email@example.com"
+     ```
+
+6. **Development Environment Setup**
+   - Choose local server option:
+     - Laravel Valet (macOS) - recommended for Mac
+     - Laravel Herd (macOS/Windows) - recommended cross-platform
+     - `php artisan serve` - built-in PHP server
+     - Docker with Laravel Sail - containerized environment
+   - Verify HTTPS capability (required for modern browser features)
+
+7. **Code Editor Setup** (Recommended)
+   - Install VS Code, PhpStorm, or preferred IDE
+   - Install PHP language support and Blade syntax highlighting
+   - Install Tailwind CSS IntelliSense extension
+   - Configure EditorConfig for consistent formatting
+
+8. **Performance Verification**
+   - Verify system has adequate resources:
+     - RAM: 4GB minimum, 8GB+ recommended
+     - Disk space: 2GB minimum for project
+     - CPU: Multi-core processor recommended for build tools
+
+**Success Criteria**:
+- ✅ PHP 8.5+ installed with all required extensions
+- ✅ Node.js 25+ and npm installed
+- ✅ Composer 2.7+ installed
+- ✅ Database server (MySQL 8.0+ or PostgreSQL 14+) running
+- ✅ Git installed and configured
+- ✅ Development environment ready (Valet/Herd/artisan serve)
+- ✅ All system requirements met and verified
+
+---
 
 ## Phase 1: Project Setup & Configuration
 
@@ -257,50 +370,50 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
     
     Tables to create (adapted from legacy app):
     
-    a. **2024_01_01_000001_create_classifications_table.php**
+    a. **2025_01_01_000001_create_classifications_table.php**
        - Source: [2015_12_21_233545_create_classifications_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_classifications_table.php)
        - Modernize: Use `$table->id()`, `$table->string('name')->unique()`, `$table->timestamps()`
     
-    b. **2024_01_01_000002_create_sources_table.php**
+    b. **2025_01_01_000002_create_sources_table.php**
        - Source: [2015_12_21_233545_create_sources_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_sources_table.php)
        - Modernize: Use modern Blueprint methods
     
-    c. **2024_01_01_000003_create_recipes_table.php**
+    c. **2025_01_01_000003_create_recipes_table.php**
        - Source: [2015_12_21_233545_create_recipes_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_recipes_table.php)
        - Update: Change `string` columns to `text` where appropriate (ingredients, instructions, notes)
        - Update: Change nutrition columns from string to decimal/float
        - Update: Add inline foreign key definitions for classification_id, source_id
        - Key columns: id, name (unique), ingredients (text), instructions (text), notes (text, nullable), servings (int, nullable), classification_id, source_id, date_added (dateTime), calories (decimal), fat (decimal), cholesterol (decimal), sodium (decimal), protein (decimal), marked (boolean), timestamps
     
-    d. **2024_01_01_000004_create_meals_table.php**
+    d. **2025_01_01_000004_create_meals_table.php**
        - Source: [2015_12_21_233545_create_meals_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_meals_table.php)
        - Modernize: Use modern Blueprint methods
     
-    e. **2024_01_01_000005_create_preparations_table.php**
+    e. **2025_01_01_000005_create_preparations_table.php**
        - Source: [2015_12_21_233545_create_preparations_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_preparations_table.php)
        - Modernize: Use modern Blueprint methods
     
-    f. **2024_01_01_000006_create_courses_table.php**
+    f. **2025_01_01_000006_create_courses_table.php**
        - Source: [2015_12_21_233545_create_courses_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_courses_table.php)
        - Modernize: Use modern Blueprint methods
     
-    g. **2024_01_01_000007_create_cookbooks_table.php**
+    g. **2025_01_01_000007_create_cookbooks_table.php**
        - Source: [2015_12_21_233545_create_cookbooks_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_cookbooks_table.php)
        - Modernize: Use modern Blueprint methods
     
-    h. **2024_01_01_000008_create_recipe_meals_table.php**
+    h. **2025_01_01_000008_create_recipe_meals_table.php**
        - Source: [2015_12_21_233545_create_recipe_meals_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_recipe_meals_table.php)
        - Update: Add inline foreign keys with cascading deletes
     
-    i. **2024_01_01_000009_create_recipe_preparations_table.php**
+    i. **2025_01_01_000009_create_recipe_preparations_table.php**
        - Source: [2015_12_21_233545_create_recipe_preparations_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_recipe_preparations_table.php)
        - Update: Add inline foreign keys with cascading deletes
     
-    j. **2024_01_01_000010_create_recipe_courses_table.php**
+    j. **2025_01_01_000010_create_recipe_courses_table.php**
        - Source: [2015_12_21_233545_create_recipe_courses_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_recipe_courses_table.php)
        - Update: Add inline foreign keys with cascading deletes
     
-    k. **2024_01_01_000011_create_cookbook_recipes_table.php**
+    k. **2025_01_01_000011_create_cookbook_recipes_table.php**
        - Source: [2015_12_21_233545_create_cookbook_recipes_table.php](https://github.com/dougis-org/laravel-recipes-update/blob/main/database/migrations/2015_12_21_233545_create_cookbook_recipes_table.php)
        - Update: Add inline foreign keys with cascading deletes
 
@@ -314,7 +427,54 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
     - Remove deprecated index() methods; use `->index()` inline on columns
     - Ensure all required foreign keys and constraints are defined
 
-12. **Create/Modernize Eloquent Models** (in `app/Models/`)
+12. **Add Database Indexes for Performance**
+    - Create migration: `2025_01_01_000012_add_database_indexes.php`
+    - Add indexes for frequently queried columns:
+      ```php
+      Schema::table('recipes', function (Blueprint $table) {
+          // Single column indexes
+          $table->index('name');
+          $table->index('date_added');
+          $table->index('classification_id');
+          $table->index('source_id');
+          $table->index('marked');
+
+          // Compound indexes for common query patterns
+          $table->index(['classification_id', 'name']); // Sorted by classification
+          $table->index(['source_id', 'name']); // Recipes by source
+          $table->index(['date_added', 'id']); // Pagination optimization
+
+          // Full-text index for search (MySQL only)
+          $table->fullText(['name', 'ingredients']);
+      });
+
+      Schema::table('cookbooks', function (Blueprint $table) {
+          $table->index('name');
+      });
+
+      // Pivot table indexes
+      Schema::table('cookbook_recipes', function (Blueprint $table) {
+          $table->index('cookbook_id');
+          $table->index('recipe_id');
+          $table->index(['cookbook_id', 'recipe_id']); // Prevent duplicates
+      });
+
+      Schema::table('recipe_meals', function (Blueprint $table) {
+          $table->index(['recipe_id', 'meal_id']);
+      });
+
+      Schema::table('recipe_preparations', function (Blueprint $table) {
+          $table->index(['recipe_id', 'preparation_id']);
+      });
+
+      Schema::table('recipe_courses', function (Blueprint $table) {
+          $table->index(['recipe_id', 'course_id']);
+      });
+      ```
+    - **Note**: Full-text indexes only work on MyISAM or InnoDB (MySQL 5.6+)
+    - For PostgreSQL, consider using GIN indexes for search
+
+13. **Create/Modernize Eloquent Models** (in `app/Models/`)
     - **Source**: Adapt from [legacy app Models](https://github.com/dougis-org/laravel-recipes-update/tree/main/app/Models) (all 7 models exist)
     - **Approach**: Remove Eloquence trait, modernize relationship syntax, adapt to Laravel 12 conventions
     
@@ -807,219 +967,920 @@ The legacy app has 19 migrations created with Laravel 5.2 syntax. We'll adapt th
 
 ---
 
-## Phase 13: Error Handling & User Experience
+## Phase 13: Security Hardening & Error Handling
 
-**Goals**: Implement error pages and improve user experience
+**Goals**: Implement comprehensive security measures, error handling, and improve user experience
 
 ### Tasks
 
-50. **Create Error Views** (in `resources/views/errors/`)
-    
+50. **Configure Security Headers**
+    - Update `config/app.php` and middleware
+    - Add security headers in `app/Http/Middleware/`:
+      ```php
+      // Content Security Policy
+      header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';");
+
+      // Prevent clickjacking
+      header("X-Frame-Options: SAMEORIGIN");
+
+      // Prevent MIME sniffing
+      header("X-Content-Type-Options: nosniff");
+
+      // XSS Protection
+      header("X-XSS-Protection: 1; mode=block");
+
+      // HSTS (HTTPS enforcement) - only in production
+      header("Strict-Transport-Security: max-age=31536000; includeSubDomains");
+      ```
+    - OR use package: `composer require bepsvpt/secure-headers`
+
+51. **Implement Rate Limiting**
+    - Configure in `app/Http/Kernel.php`:
+      ```php
+      'api' => [
+          'throttle:60,1', // 60 requests per minute
+      ],
+      'web' => [
+          'throttle:1000,1', // 1000 requests per minute
+      ],
+      ```
+    - Add custom rate limiting for search:
+      ```php
+      RateLimiter::for('search', function (Request $request) {
+          return Limit::perMinute(30)->by($request->ip());
+      });
+      ```
+
+52. **Implement Form Request Validation**
+    - Create `app/Http/Requests/SearchRecipeRequest.php`:
+      ```php
+      public function rules() {
+          return [
+              'search' => 'nullable|string|max:100',
+              'sortField' => 'nullable|in:name,date_added',
+              'sortOrder' => 'nullable|in:asc,desc',
+              'displayCount' => 'nullable|integer|in:20,30,50,100',
+          ];
+      }
+      ```
+    - Prevents SQL injection and validates all user input
+
+53. **Configure CSRF Protection**
+    - Verify CSRF middleware is active in `app/Http/Kernel.php`
+    - Add `@csrf` to all forms
+    - Configure CSRF token refresh for long-running sessions
+    - Custom 419 error page for expired tokens
+
+54. **Implement Mass Assignment Protection**
+    - Verify all models have `$fillable` or `$guarded` arrays
+    - Never use `$guarded = []` in production
+    - Review all models for proper mass assignment protection
+
+55. **Configure HTTPS Enforcement** (Production)
+    - Update `.env`: `APP_URL=https://your-domain.com`
+    - Add middleware to force HTTPS:
+      ```php
+      if (!$request->secure() && app()->environment('production')) {
+          return redirect()->secure($request->getRequestUri());
+      }
+      ```
+    - Or use `TrustProxies` middleware
+
+56. **Implement Input Sanitization**
+    - Use Laravel's built-in XSS protection (Blade escaping)
+    - Verify all output uses `{{ $variable }}` not `{!! $variable !!}`
+    - Sanitize user input in controllers before database storage
+
+57. **Create Error Views** (in `resources/views/errors/`)
+
     a. **404.blade.php**: Not found error
     b. **500.blade.php**: Server error
     c. **419.blade.php**: Session expired (CSRF token)
-    d. **429.blade.php**: Too many requests
+    d. **429.blade.php**: Too many requests (rate limit)
+    e. **403.blade.php**: Forbidden (authorization)
 
-51. **Configure Exception Handler** (`app/Exceptions/Handler.php`)
-    - Set up proper error logging
-    - Return user-friendly error responses
-    - Log errors to storage/logs/
+58. **Configure Exception Handler** (`app/Exceptions/Handler.php`)
+    - Set up proper error logging with context
+    - Return user-friendly error responses (no stack traces in production)
+    - Log errors to `storage/logs/` with rotation
+    - Configure error reporting levels per environment
+    - Never expose sensitive data in error messages
 
-52. **Add Flash Messages**
+59. **Implement Error Monitoring** (Optional but recommended)
+    - Option 1: Laravel Flare (free tier available)
+      - Install: `composer require spatie/laravel-ignition`
+      - Configure in `config/flare.php`
+    - Option 2: Sentry
+      - Install: `composer require sentry/sentry-laravel`
+      - Add DSN to `.env`: `SENTRY_LARAVEL_DSN=your-dsn`
+    - Option 3: Bugsnag
+      - Install: `composer require bugsnag/bugsnag-laravel`
+
+60. **Add Flash Messages**
     - Implement success/error flash messages
     - Display in layout header/footer area
     - Auto-dismiss after 5 seconds with Alpine.js
+    - Use Bootstrap-style alerts: success, error, warning, info
 
-53. **Implement 404 Handling**
-    - Test 404 pages in browser
-    - Verify styling matches application
+61. **Security Testing**
+    - Test CSRF protection on all forms
+    - Test rate limiting on search endpoint
+    - Verify HTTPS redirects (in production)
+    - Test 419 error page for expired CSRF tokens
+    - Verify no SQL injection vulnerabilities
+    - Test XSS protection (try injecting `<script>alert('xss')</script>`)
 
 **Success Criteria**:
+- ✅ All security headers configured and verified
+- ✅ Rate limiting active on search and forms
+- ✅ CSRF protection working on all forms
+- ✅ Input validation active via Form Requests
+- ✅ Mass assignment protection verified on all models
+- ✅ HTTPS enforced in production environment
 - ✅ 404 error displays gracefully
 - ✅ 500 error displays gracefully
 - ✅ Error pages styled consistently with app
 - ✅ User feedback messages display correctly
 - ✅ No raw exception messages shown to users
+- ✅ Error monitoring configured (if using external service)
+- ✅ Security testing completed with no vulnerabilities
 
 ---
 
-## Phase 14: Accessibility & Performance
+## Phase 14: Accessibility, Performance & Browser Compatibility
 
-**Goals**: Ensure application is accessible and performant
+**Goals**: Ensure application is accessible, performant, and compatible across browsers
 
 ### Tasks
 
-54. **Implement Accessibility**
-    - Add alt text to images
+62. **Implement Accessibility (WCAG 2.1 AA)**
+    - Add alt text to all images
     - Use semantic HTML (header, nav, main, footer, section, article)
-    - Add ARIA labels where needed
-    - Ensure form inputs have associated labels
-    - Test keyboard navigation
-    - Verify color contrast meets WCAG AA standards
+    - Add ARIA labels where needed:
+      ```html
+      <nav aria-label="Main navigation">
+      <button aria-label="Open mobile menu" aria-expanded="false">
+      ```
+    - Ensure all form inputs have associated labels
+    - Add skip navigation link for keyboard users
+    - Test keyboard navigation (Tab, Enter, Escape)
+    - Verify color contrast meets WCAG AA standards (4.5:1 for normal text, 3:1 for large text)
+    - Test with screen reader (NVDA, JAWS, or VoiceOver)
+    - Add focus indicators for all interactive elements
 
-55. **Performance Optimization**
-    - Add database indexes on frequently queried columns: name, classification_id, date_added
-    - Verify queries use eager loading: `with('classification', 'source')`
-    - Test with production build: `npm run build`
-    - Verify lazy loading of images if present
-    - Check Lighthouse score (target >90 on all metrics)
+63. **Performance Optimization**
+    - Database query optimization:
+      - Verify indexes are used (check with `EXPLAIN` queries)
+      - Ensure eager loading prevents N+1: `with('classification', 'source')`
+      - Add query result caching for reference data (classifications, sources)
+    - Asset optimization:
+      - Test with production build: `npm run build`
+      - Verify CSS is minified and purged (unused Tailwind classes removed)
+      - Verify JavaScript is minified
+      - Enable gzip/brotli compression in web server
+    - Image optimization (if applicable):
+      - Use lazy loading: `loading="lazy"`
+      - Use modern formats (WebP with fallbacks)
+      - Serve appropriately sized images
+    - Implement caching headers:
+      - Static assets: `Cache-Control: public, max-age=31536000, immutable`
+      - HTML: `Cache-Control: no-cache, must-revalidate`
 
-56. **Test Responsive Design**
-    - Test on mobile (320px), tablet (768px), desktop (1024px+)
-    - Verify touch targets are adequate (minimum 44px)
-    - Test navigation on all screen sizes
-    - Verify forms are usable on mobile
+64. **Set Performance Benchmarks**
+    - **Target Metrics**:
+      - First Contentful Paint (FCP): < 1.8s
+      - Largest Contentful Paint (LCP): < 2.5s
+      - Time to Interactive (TTI): < 3.5s
+      - Cumulative Layout Shift (CLS): < 0.1
+      - First Input Delay (FID): < 100ms
+      - Total Blocking Time (TBT): < 300ms
+    - **Page Load Times** (3G connection):
+      - Recipe index: < 2.0s
+      - Recipe detail: < 1.5s
+      - Cookbook index: < 2.0s
+      - Cookbook detail: < 2.5s
+    - **Database Performance**:
+      - Max queries per page: 10 queries
+      - Average query time: < 50ms
+      - No queries over 200ms
+    - **Asset Sizes**:
+      - CSS bundle: < 100KB (minified)
+      - JavaScript bundle: < 50KB (minified)
+      - Total page size: < 500KB
+
+65. **Run Lighthouse Audit**
+    - Performance: > 90
+    - Accessibility: > 90
+    - Best Practices: > 90
+    - SEO: > 90
+    - Run on multiple pages (index, detail, cookbook)
+    - Test on both desktop and mobile
+    - Document and fix any issues
+
+66. **Test Browser Compatibility**
+    - **Desktop Browsers** (test all core features):
+      - Chrome/Edge (last 2 versions): Latest stable + previous
+      - Firefox (last 2 versions): Latest stable + previous
+      - Safari (last 2 versions): macOS Safari latest + previous
+    - **Mobile Browsers**:
+      - Chrome Mobile (Android): Latest stable
+      - Safari Mobile (iOS): iOS 16+ and 17+
+    - **Feature Testing Matrix**:
+      - ✅ Tailwind CSS rendering
+      - ✅ Alpine.js functionality (mobile menu, toggles)
+      - ✅ Form submissions
+      - ✅ Pagination
+      - ✅ Search functionality
+      - ✅ Responsive design breakpoints
+    - **Polyfills** (if needed):
+      - Add polyfills for older browsers via browserslist
+      - Configure in `package.json`:
+        ```json
+        "browserslist": [
+          "last 2 versions",
+          "> 1%",
+          "not dead"
+        ]
+        ```
+
+67. **Test Responsive Design**
+    - **Breakpoints to test**:
+      - Mobile: 320px, 375px, 414px (iPhone SE, iPhone 12/13, iPhone Pro Max)
+      - Tablet: 768px, 834px, 1024px (iPad, iPad Air, iPad Pro)
+      - Desktop: 1280px, 1440px, 1920px, 2560px
+    - **Responsive checks**:
+      - Navigation collapses to hamburger menu on mobile
+      - Recipe grid adjusts columns (1 → 2 → 3 → 4)
+      - Forms are thumb-friendly with adequate spacing
+      - Touch targets minimum 44x44px
+      - Font sizes readable without zooming
+      - No horizontal scrolling
+    - **Test orientations**:
+      - Portrait and landscape on mobile/tablet
+    - **Test devices** (BrowserStack or physical):
+      - iPhone 12/13/14
+      - iPad Air
+      - Samsung Galaxy S21/S22
+      - Desktop at various resolutions
+
+68. **Performance Monitoring Setup** (Ongoing)
+    - Add server timing headers for debugging
+    - Configure Laravel Telescope for local debugging (optional)
+    - Set up performance monitoring in production:
+      - New Relic (recommended)
+      - Blackfire.io
+      - Laravel Debugbar (dev only)
+    - Monitor Core Web Vitals in production
 
 **Success Criteria**:
-- ✅ Application is keyboard navigable
+- ✅ WCAG 2.1 AA compliance verified with automated tools
+- ✅ Application is fully keyboard navigable
 - ✅ Alt text present on all images
 - ✅ Semantic HTML used throughout
-- ✅ Lighthouse score >90 on performance and accessibility
-- ✅ Responsive design works on all screen sizes
+- ✅ Screen reader testing completed
+- ✅ Lighthouse score > 90 on all metrics (Performance, Accessibility, Best Practices, SEO)
+- ✅ All performance benchmarks met (FCP < 1.8s, LCP < 2.5s, etc.)
+- ✅ Page load times within targets (< 2.0s for index, < 1.5s for detail)
+- ✅ Database queries optimized (< 10 per page, < 50ms average)
+- ✅ Asset sizes within limits (CSS < 100KB, JS < 50KB)
+- ✅ Tested and working in all supported browsers
+- ✅ Responsive design verified on all breakpoints and devices
+- ✅ Touch targets adequate for mobile (44x44px minimum)
+- ✅ No layout shifts (CLS < 0.1)
 - ✅ Mobile experience is smooth and usable
 
 ---
 
-## Phase 15: Documentation & Deployment
+## Phase 15: CI/CD Pipeline Setup
 
-**Goals**: Document the application and prepare for deployment
+**Goals**: Automate testing, code quality checks, and deployment process
 
 ### Tasks
 
-57. **Update Documentation**
+69. **Create GitHub Actions Workflow** (`.github/workflows/laravel.yml`)
+    ```yaml
+    name: Laravel CI/CD
+
+    on:
+      push:
+        branches: [ main, develop ]
+      pull_request:
+        branches: [ main, develop ]
+
+    jobs:
+      test:
+        runs-on: ubuntu-latest
+
+        services:
+          mysql:
+            image: mysql:8.0
+            env:
+              MYSQL_ROOT_PASSWORD: password
+              MYSQL_DATABASE: testing
+            ports:
+              - 3306:3306
+            options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+        steps:
+        - uses: actions/checkout@v4
+
+        - name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: '8.5'
+            extensions: mbstring, xml, bcmath, pdo_mysql
+            coverage: xdebug
+
+        - name: Install Composer dependencies
+          run: composer install --prefer-dist --no-progress
+
+        - name: Copy .env
+          run: php -r "file_exists('.env') || copy('.env.testing', '.env');"
+
+        - name: Generate key
+          run: php artisan key:generate
+
+        - name: Directory Permissions
+          run: chmod -R 777 storage bootstrap/cache
+
+        - name: Run migrations
+          env:
+            DB_CONNECTION: mysql
+            DB_HOST: 127.0.0.1
+            DB_PORT: 3306
+            DB_DATABASE: testing
+            DB_USERNAME: root
+            DB_PASSWORD: password
+          run: php artisan migrate
+
+        - name: Execute tests
+          env:
+            DB_CONNECTION: mysql
+            DB_HOST: 127.0.0.1
+            DB_PORT: 3306
+            DB_DATABASE: testing
+            DB_USERNAME: root
+            DB_PASSWORD: password
+          run: vendor/bin/pest --coverage --min=80
+
+        - name: Run Laravel Pint (code style)
+          run: vendor/bin/pint --test
+
+        - name: Run PHPStan (static analysis)
+          run: vendor/bin/phpstan analyse --memory-limit=2G
+
+      frontend:
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v4
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '25'
+            cache: 'npm'
+
+        - name: Install dependencies
+          run: npm ci
+
+        - name: Build assets
+          run: npm run build
+
+        - name: Lint JavaScript
+          run: npm run lint || true
+    ```
+
+70. **Configure PHPStan** (`phpstan.neon`)
+    ```neon
+    parameters:
+        level: 5
+        paths:
+            - app
+        excludePaths:
+            - app/Console/Kernel.php
+        checkMissingIterableValueType: false
+    ```
+
+71. **Configure Laravel Pint** (`pint.json`)
+    ```json
+    {
+        "preset": "laravel",
+        "rules": {
+            "simplified_null_return": true,
+            "braces": true,
+            "new_with_braces": true
+        }
+    }
+    ```
+
+72. **Add Pre-commit Hooks** (Optional)
+    - Install: `composer require --dev brainmaestro/composer-git-hooks`
+    - Configure in `composer.json`:
+      ```json
+      "extra": {
+          "hooks": {
+              "pre-commit": [
+                  "vendor/bin/pint",
+                  "vendor/bin/pest"
+              ],
+              "pre-push": [
+                  "vendor/bin/phpstan analyse"
+              ]
+          }
+      }
+      ```
+    - Install hooks: `vendor/bin/cghooks add --ignore-lock`
+
+73. **Configure Dependabot** (`.github/dependabot.yml`)
+    ```yaml
+    version: 2
+    updates:
+      - package-ecosystem: "composer"
+        directory: "/"
+        schedule:
+          interval: "weekly"
+
+      - package-ecosystem: "npm"
+        directory: "/"
+        schedule:
+          interval: "weekly"
+
+      - package-ecosystem: "github-actions"
+        directory: "/"
+        schedule:
+          interval: "weekly"
+    ```
+
+74. **Add Code Coverage Reporting** (Optional)
+    - Codecov: Add to GitHub Actions
+      ```yaml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+      ```
+    - Or use Coveralls
+    - Add badge to README.md
+
+75. **Configure Deployment** (Choose one)
+
+    **Option A: Laravel Forge**
+    - Connect GitHub repository
+    - Configure deployment trigger on main branch
+    - Set up environment variables
+    - Configure deployment script
+
+    **Option B: GitHub Actions Deployment**
+    ```yaml
+    deploy:
+      needs: [test, frontend]
+      runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/main'
+
+      steps:
+        - uses: actions/checkout@v4
+
+        - name: Deploy to production
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.SSH_KEY }}
+            script: |
+              cd /var/www/laravel-recipes
+              git pull origin main
+              composer install --no-dev --optimize-autoloader
+              npm ci && npm run build
+              php artisan migrate --force
+              php artisan config:cache
+              php artisan route:cache
+              php artisan view:cache
+              php artisan queue:restart
+    ```
+
+76. **Test CI/CD Pipeline**
+    - Push to feature branch and create PR
+    - Verify all checks pass
+    - Merge PR and verify deployment (if configured)
+
+**Success Criteria**:
+- ✅ GitHub Actions workflow running on all PRs
+- ✅ All tests pass in CI environment
+- ✅ Code style checks (Pint) passing
+- ✅ Static analysis (PHPStan) passing
+- ✅ Frontend build succeeds in CI
+- ✅ Code coverage reports generated (>80%)
+- ✅ Deployment automation configured
+- ✅ Dependabot configured for dependency updates
+- ✅ Pre-commit hooks working (if configured)
+
+---
+
+## Phase 16: Documentation, Backup & Deployment
+
+**Goals**: Document the application, configure backup strategy, and prepare for deployment
+
+### Tasks
+
+77. **Configure Database Backup Strategy**
+
+    **Option A: Automated Backups with Laravel Backup Package**
+    - Install: `composer require spatie/laravel-backup`
+    - Configure `config/backup.php`:
+      ```php
+      'backup' => [
+          'name' => env('APP_NAME', 'laravel-backup'),
+          'source' => [
+              'files' => [
+                  'include' => [
+                      base_path(),
+                  ],
+                  'exclude' => [
+                      base_path('vendor'),
+                      base_path('node_modules'),
+                  ],
+              ],
+              'databases' => [
+                  'mysql',
+              ],
+          ],
+          'destination' => [
+              'filename_prefix' => '',
+              'disks' => [
+                  's3', // or 'local' for testing
+              ],
+          ],
+      ],
+      ```
+    - Schedule in `app/Console/Kernel.php`:
+      ```php
+      protected function schedule(Schedule $schedule)
+      {
+          $schedule->command('backup:clean')->daily()->at('01:00');
+          $schedule->command('backup:run')->daily()->at('02:00');
+      }
+      ```
+
+    **Option B: Manual MySQL Backups**
+    - Create backup script (`scripts/backup.sh`):
+      ```bash
+      #!/bin/bash
+      DATE=$(date +%Y%m%d_%H%M%S)
+      mysqldump -u $DB_USER -p$DB_PASS $DB_NAME > backups/db_$DATE.sql
+      gzip backups/db_$DATE.sql
+      # Upload to S3 or remote storage
+      aws s3 cp backups/db_$DATE.sql.gz s3://your-bucket/backups/
+      # Keep only last 30 days
+      find backups/ -name "db_*.sql.gz" -mtime +30 -delete
+      ```
+    - Add to crontab: `0 2 * * * /path/to/scripts/backup.sh`
+
+78. **Configure Backup Verification**
+    - Test backup restoration weekly
+    - Verify backup integrity:
+      ```bash
+      gunzip < backup.sql.gz | mysql -u user -p dbname_test
+      ```
+    - Set up backup monitoring alerts
+    - Store backups in multiple locations (local + cloud)
+
+79. **Implement Disaster Recovery Plan**
+
+    **Recovery Procedures Documentation** (`docs/DISASTER_RECOVERY.md`):
+    - Database restoration steps
+    - Application restoration steps
+    - DNS failover procedures (if applicable)
+    - Contact list for emergencies
+    - Expected Recovery Time Objective (RTO): < 4 hours
+    - Recovery Point Objective (RPO): < 24 hours (daily backups)
+
+    **Database Recovery Steps**:
+    ```bash
+    # 1. Stop application
+    php artisan down
+
+    # 2. Restore database from backup
+    gunzip < backup_YYYYMMDD.sql.gz | mysql -u user -p database
+
+    # 3. Run any pending migrations
+    php artisan migrate --force
+
+    # 4. Clear caches
+    php artisan config:clear
+    php artisan cache:clear
+    php artisan view:clear
+
+    # 5. Bring application back online
+    php artisan up
+    ```
+
+80. **Configure Staging Environment**
+    - Set up staging server matching production
+    - Configure `.env.staging` with separate database
+    - Set up separate domain: `staging.yourdomain.com`
+    - Configure deployment to staging before production
+    - Use for final testing before production deployment
+    - Set `APP_ENV=staging` and `APP_DEBUG=true`
+
+81. **Update Documentation**
     - Update `README.md` with:
       - Project overview
       - Tech stack (Laravel 12, Tailwind CSS 4+, Alpine.js 3, Vite, PHP 8.5+, Node.js 25+)
       - Setup instructions
       - Database schema overview
       - Feature documentation
-    - Update `.github/copilot-instructions.md` with modern patterns (already done in this project)
+      - Browser compatibility matrix
     - Create `DEVELOPMENT.md` with:
       - Development workflow (running dev server, building assets, running tests)
-      - Debugging tips
+      - Debugging tips (Laravel Telescope, Debugbar, Log viewing)
       - Common tasks (creating models, migrations, seeders)
+      - Running tests with code coverage
+      - Code style guidelines (PSR-12, Pint configuration)
+    - Create `DEPLOYMENT.md` with:
+      - Server requirements
+      - Deployment steps
+      - Environment configuration
+      - Rollback procedures
+      - Backup and recovery procedures
+    - Create `DISASTER_RECOVERY.md` with:
+      - Recovery procedures
+      - Backup restoration steps
+      - Emergency contacts
+      - RTO/RPO commitments
 
-58. **Configure Environment**
-    - Create `.env.example` with all required variables
-    - Document each environment variable's purpose
-    - Set production values in deployment environment
+82. **Configure Environment Variables**
+    - Create comprehensive `.env.example`:
+      ```env
+      APP_NAME="Laravel Recipes"
+      APP_ENV=local
+      APP_KEY=
+      APP_DEBUG=true
+      APP_URL=http://localhost
 
-59. **Test Fresh Installation**
+      LOG_CHANNEL=stack
+      LOG_LEVEL=debug
+
+      DB_CONNECTION=mysql
+      DB_HOST=127.0.0.1
+      DB_PORT=3306
+      DB_DATABASE=laravel_recipes
+      DB_USERNAME=root
+      DB_PASSWORD=
+
+      BROADCAST_DRIVER=log
+      CACHE_DRIVER=file
+      FILESYSTEM_DISK=local
+      QUEUE_CONNECTION=sync
+      SESSION_DRIVER=file
+      SESSION_LIFETIME=120
+
+      # Backup Configuration (if using spatie/laravel-backup)
+      BACKUP_DISK=s3
+      AWS_ACCESS_KEY_ID=
+      AWS_SECRET_ACCESS_KEY=
+      AWS_DEFAULT_REGION=us-east-1
+      AWS_BUCKET=
+
+      # Mail Configuration
+      MAIL_MAILER=smtp
+      MAIL_HOST=mailhog
+      MAIL_PORT=1025
+      MAIL_USERNAME=null
+      MAIL_PASSWORD=null
+      MAIL_ENCRYPTION=null
+      MAIL_FROM_ADDRESS="hello@example.com"
+      MAIL_FROM_NAME="${APP_NAME}"
+
+      # Error Monitoring (optional)
+      SENTRY_LARAVEL_DSN=
+      FLARE_KEY=
+      ```
+    - Document each variable's purpose in `.env.example` comments
+
+83. **Test Fresh Installation**
     - Clone repository and run setup from scratch:
-      - `git clone <repo>`
-      - `composer install`
-      - `npm install`
-      - `cp .env.example .env`
-      - `php artisan key:generate`
-      - `php artisan migrate --seed`
-      - `npm run build`
-      - Verify application runs correctly
+      ```bash
+      git clone <repo>
+      cd laravel-recipes-2025
+      composer install
+      npm install
+      cp .env.example .env
+      php artisan key:generate
+      php artisan migrate --seed
+      npm run build
+      php artisan serve
+      ```
+    - Verify application runs correctly
+    - Test all major features work
+    - Verify database seeded properly
 
-60. **Deployment Checklist**
-    - [ ] All tests pass
+84. **Production Deployment Checklist**
+    - [ ] All tests pass (`vendor/bin/pest`)
+    - [ ] Code style checks pass (`vendor/bin/pint --test`)
+    - [ ] Static analysis passes (`vendor/bin/phpstan analyse`)
     - [ ] No console errors or warnings
-    - [ ] Production build completes successfully
-    - [ ] `.env` configured for production
-    - [ ] Database migrations ready
-    - [ ] Error handling configured
-    - [ ] Logging configured
-    - [ ] CSRF protection enabled
+    - [ ] Production build completes successfully (`npm run build`)
+    - [ ] `.env` configured for production (APP_ENV=production, APP_DEBUG=false)
+    - [ ] Database migrations tested on staging
+    - [ ] Backup system configured and tested
+    - [ ] Error monitoring configured (Sentry/Flare)
     - [ ] Security headers configured
-    - [ ] CORS configured if needed
+    - [ ] HTTPS enforced
+    - [ ] CSRF protection enabled
+    - [ ] Rate limiting configured
+    - [ ] Cron jobs configured (backups, scheduled tasks)
+    - [ ] Log rotation configured
+    - [ ] Server requirements met (PHP 8.5+, MySQL 8.0+, Node.js 25+)
+    - [ ] File permissions set correctly (storage/ and bootstrap/cache/ writable)
+    - [ ] Composer autoload optimized (`composer install --optimize-autoloader --no-dev`)
+    - [ ] Config cached (`php artisan config:cache`)
+    - [ ] Routes cached (`php artisan route:cache`)
+    - [ ] Views cached (`php artisan view:cache`)
+    - [ ] Rollback plan documented and tested
+    - [ ] Disaster recovery plan documented
+    - [ ] Monitoring and alerting configured
+    - [ ] Performance benchmarks met
+
+85. **Post-Deployment Verification**
+    - Verify application is accessible
+    - Test all major features:
+      - Recipe listing with sorting
+      - Recipe search
+      - Recipe detail pages
+      - Cookbook listing
+      - Cookbook detail pages
+    - Verify error pages (404, 500, 419)
+    - Check Lighthouse scores (all > 90)
+    - Monitor error logs for first 24 hours
+    - Verify backups are running
+    - Test disaster recovery procedure
 
 **Success Criteria**:
-- ✅ README updated with setup instructions
-- ✅ Development documentation complete
+- ✅ Automated backup system configured and tested
+- ✅ Backups stored in multiple locations
+- ✅ Disaster recovery plan documented and tested
+- ✅ Staging environment configured
+- ✅ README updated with comprehensive setup instructions
+- ✅ Development documentation complete (DEVELOPMENT.md)
+- ✅ Deployment documentation complete (DEPLOYMENT.md)
+- ✅ Disaster recovery documentation complete (DISASTER_RECOVERY.md)
 - ✅ Fresh installation works from scratch
 - ✅ All environment variables documented
-- ✅ Deployment process clear and tested
+- ✅ Production deployment checklist completed
+- ✅ Post-deployment verification successful
+- ✅ Monitoring and alerting configured
 
 ---
 
 ## Implementation Checklist
 
+### Phase 0: Prerequisites & System Requirements
+- [ ] PHP 8.5+ installed with all required extensions
+- [ ] Node.js 25+ and npm installed
+- [ ] Composer 2.7+ installed
+- [ ] Database server (MySQL 8.0+ or PostgreSQL 14+) running
+- [ ] Git installed and configured
+- [ ] Development environment ready (Valet/Herd/artisan serve)
+- [ ] Code editor configured with extensions
+
 ### Phase 1: Project Setup
 - [ ] Laravel 12 project initialized
 - [ ] Database configured
 - [ ] Version control initialized
+- [ ] Dependencies installed and verified
 
 ### Phase 2: Frontend Stack
-- [ ] Tailwind CSS 4 installed and configured
-- [ ] Alpine.js 3 installed
+- [ ] Tailwind CSS 4+ installed and configured
+- [ ] Alpine.js 3.14+ installed
+- [ ] PostCSS and Autoprefixer configured
 - [ ] Vite build pipeline working
 - [ ] npm run dev and npm run build functional
+- [ ] Asset loading verified in browser
 
 ### Phase 3: Database & Models
-- [ ] All migrations created and run successfully
+- [ ] All migrations created (tables + indexes)
+- [ ] Database indexes migration created
+- [ ] All migrations run successfully
 - [ ] All Eloquent models created with relationships
 - [ ] Models tested in Tinker
+- [ ] Foreign key constraints verified
 
 ### Phase 4: Search
-- [ ] Search implementation chosen (Scout or native scopes)
+- [ ] Search scope implemented in Recipe model
 - [ ] Search functionality working
+- [ ] Full-text index created (if using MySQL)
 
 ### Phase 5: Controllers & Routing
 - [ ] RecipeController created with index and show methods
 - [ ] CookbookController created with index and show methods
+- [ ] Form Request validation classes created
 - [ ] Routes defined and tested
 - [ ] Default route redirects correctly
+- [ ] Eager loading configured to prevent N+1 queries
 
 ### Phase 6: Layout & Components
-- [ ] Base layout created
-- [ ] All reusable components created
-- [ ] Navigation working
+- [ ] Base layout created with Vite directives
+- [ ] All reusable Blade components created
+- [ ] Navigation component with mobile menu
 - [ ] Responsive design verified
+- [ ] Component library documented
 
 ### Phase 7: Recipe Views
 - [ ] Recipe index view created with search, sort, pagination
 - [ ] Recipe detail view created
 - [ ] Recipe card component created
-- [ ] All features working
+- [ ] All Tailwind CSS styling applied
+- [ ] All features working (search, sort, pagination)
 
 ### Phase 8: Cookbook Views
 - [ ] Cookbook index view created
 - [ ] Cookbook detail view created
-- [ ] Recipe ordering verified
+- [ ] Cookbook card component created
+- [ ] Recipe ordering verified (by classification, then name)
 
 ### Phase 9: Alpine.js Interactivity
 - [ ] Mobile menu working
 - [ ] Sort toggle working
 - [ ] Display count selector working
-- [ ] Hover effects working
+- [ ] Hover effects and transitions working
+- [ ] No Alpine.js console errors
 
 ### Phase 10: Asset Pipeline
-- [ ] Development build working
+- [ ] Development build working with HMR
 - [ ] Production build working
-- [ ] Assets optimized
+- [ ] CSS minified and purged
+- [ ] JavaScript minified
+- [ ] Assets within size limits (<100KB CSS, <50KB JS)
 
 ### Phase 11: Database Seeding
-- [ ] All seeders created
-- [ ] Factories created
+- [ ] All seeders created (Classifications, Sources, Meals, Preparations, Courses)
+- [ ] RecipeFactory and CookbookFactory created
 - [ ] Database seeded successfully
-- [ ] Test data displays correctly
+- [ ] Test data displays correctly in views
+- [ ] Relationships properly seeded
 
 ### Phase 12: Testing
+- [ ] Pest or PHPUnit configured
 - [ ] Feature tests created and passing
 - [ ] Unit tests created and passing
-- [ ] Performance verified (no N+1 queries)
-- [ ] All tests pass: `php artisan test`
+- [ ] Test coverage >80%
+- [ ] Performance verified (no N+1 queries, <10 queries per page)
+- [ ] All tests pass: `vendor/bin/pest`
 
-### Phase 13: Error Handling
-- [ ] Error views created
+### Phase 13: Security Hardening & Error Handling
+- [ ] Security headers configured
+- [ ] Rate limiting implemented
+- [ ] Form Request validation on all inputs
+- [ ] CSRF protection verified
+- [ ] Mass assignment protection verified
+- [ ] HTTPS enforcement configured (production)
+- [ ] Input sanitization verified
+- [ ] Error views created (404, 500, 419, 429, 403)
 - [ ] Exception handler configured
+- [ ] Error monitoring configured (optional)
 - [ ] Flash messages working
-- [ ] Error pages displaying correctly
+- [ ] Security testing completed
 
-### Phase 14: Accessibility & Performance
-- [ ] Accessibility verified
-- [ ] Lighthouse score >90
-- [ ] Responsive design tested
-- [ ] Performance optimized
+### Phase 14: Accessibility, Performance & Browser Compatibility
+- [ ] WCAG 2.1 AA compliance verified
+- [ ] Keyboard navigation working
+- [ ] Screen reader testing completed
+- [ ] Semantic HTML throughout
+- [ ] Database indexes verified with EXPLAIN
+- [ ] Query caching configured
+- [ ] Asset optimization complete
+- [ ] Performance benchmarks met (FCP <1.8s, LCP <2.5s, CLS <0.1)
+- [ ] Lighthouse score >90 on all metrics
+- [ ] Tested in all supported browsers
+- [ ] Responsive design verified on all breakpoints
+- [ ] Touch targets adequate (44x44px minimum)
 
-### Phase 15: Documentation & Deployment
-- [ ] Documentation updated
+### Phase 15: CI/CD Pipeline
+- [ ] GitHub Actions workflow created
+- [ ] PHPStan configured and passing
+- [ ] Laravel Pint configured and passing
+- [ ] Tests running in CI environment
+- [ ] Frontend build in CI working
+- [ ] Code coverage reporting configured
+- [ ] Dependabot configured
+- [ ] Deployment automation configured
+- [ ] Pre-commit hooks configured (optional)
+
+### Phase 16: Documentation, Backup & Deployment
+- [ ] Backup strategy configured and tested
+- [ ] Backup verification process established
+- [ ] Disaster recovery plan documented
+- [ ] Staging environment configured
+- [ ] README.md updated
+- [ ] DEVELOPMENT.md created
+- [ ] DEPLOYMENT.md created
+- [ ] DISASTER_RECOVERY.md created
+- [ ] .env.example comprehensive and documented
 - [ ] Fresh installation tested
-- [ ] Deployment checklist completed
+- [ ] Production deployment checklist completed
+- [ ] Post-deployment verification successful
+- [ ] Monitoring and alerting configured
 - [ ] Ready for production deployment
 
 ---
@@ -1073,7 +1934,7 @@ return new class extends Migration {
 **Example: Modernizing recipes table migration**:
 ```php
 // From: 2015_12_21_233545_create_recipes_table.php
-// To: 2024_01_01_000002_create_recipes_table.php (with modern syntax and consolidated foreign keys)
+// To: 2025_01_01_000003_create_recipes_table.php (with modern syntax and consolidated foreign keys)
 
 return new class extends Migration {
     public function up(): void {
@@ -1341,32 +2202,84 @@ The application is complete when:
 - All relationships displaying correctly
 
 ✅ **Technical**:
-- Boots without errors on Laravel 12
-- All tests passing
-- No N+1 database queries
-- Production build optimized and minified
+- Boots without errors on Laravel 12 with PHP 8.5+
+- All tests passing with >80% code coverage
+- No N+1 database queries (<10 queries per page)
+- Database indexes optimized (name, date_added, foreign keys, full-text)
+- Production build optimized and minified (CSS <100KB, JS <50KB)
 - Fresh `php artisan migrate --seed` works from scratch
+- CI/CD pipeline running successfully
+- Code style checks passing (Laravel Pint)
+- Static analysis passing (PHPStan level 5)
+
+✅ **Security**:
+- Security headers configured (CSP, HSTS, X-Frame-Options, etc.)
+- Rate limiting active on all routes
+- CSRF protection on all forms
+- Input validation via Form Requests
+- Mass assignment protection verified
+- HTTPS enforced in production
+- No SQL injection or XSS vulnerabilities
+- Security testing completed
 
 ✅ **Frontend**:
-- Modern design using Tailwind CSS 4 consistently
-- Responsive on mobile, tablet, desktop
-- Alpine.js interactivity working (mobile menu, sort controls)
-- No Bootstrap classes remaining
-- Lighthouse score >90
+- Modern design using Tailwind CSS 4+ consistently
+- Responsive on mobile, tablet, desktop (all breakpoints tested)
+- Alpine.js 3.14+ interactivity working (mobile menu, sort controls)
+- No Bootstrap or Foundation classes remaining
+- Lighthouse score >90 on all metrics (Performance, Accessibility, Best Practices, SEO)
+- Browser compatibility verified (Chrome, Firefox, Safari, Edge - last 2 versions)
+- Touch targets adequate (44x44px minimum)
+
+✅ **Performance**:
+- Page load times met (Index <2.0s, Detail <1.5s on 3G)
+- Core Web Vitals met (FCP <1.8s, LCP <2.5s, CLS <0.1, FID <100ms)
+- Database query times <50ms average
+- Asset sizes within limits
+- No layout shifts
+
+✅ **Accessibility**:
+- WCAG 2.1 AA compliance verified
+- Keyboard navigable
+- Screen reader compatible
+- Semantic HTML throughout
+- Alt text on all images
+- Color contrast meets standards (4.5:1)
+- Focus indicators on interactive elements
 
 ✅ **Code Quality**:
 - Follows modern Laravel 12 conventions
 - All code uses type hints and meaningful names
 - Blade components reusable and DRY
-- Controllers slim and focused
+- Controllers slim and focused (<50 lines per method)
 - Models with proper relationships and scopes
+- PSR-12 code style enforced
+- No code duplication
+
+✅ **Testing**:
+- Feature tests cover all user flows
+- Unit tests cover model logic
+- Test coverage >80%
+- Tests run in CI environment
+- Performance tests verify no N+1 queries
+
+✅ **Deployment & Operations**:
+- Backup system configured and tested
+- Disaster recovery plan documented
+- Staging environment configured
+- Deployment automation working
+- Error monitoring configured
+- Documentation complete (README, DEVELOPMENT, DEPLOYMENT, DISASTER_RECOVERY)
+- Environment variables documented
+- Fresh installation tested
 
 ✅ **User Experience**:
 - Clean, intuitive interface
-- Fast page loads
+- Fast page loads (<2s)
 - Smooth interactions
 - Clear navigation
 - Accessible to all users
+- Error messages helpful and user-friendly
 
 ---
 
