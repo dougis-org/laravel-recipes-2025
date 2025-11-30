@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M9-1: Add Mobile Menu Toggle
+### M9-1 (#336): Add Mobile Menu Toggle
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -100,7 +100,7 @@ So that I can access all pages on my mobile device
 
 ---
 
-### M9-2: Add Sort Direction Toggle
+### M9-2 (#319): Add Sort Direction Toggle
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -174,7 +174,7 @@ So that I can quickly change sort order
 
 ---
 
-### M9-3: Add Display Count Selector Enhancement
+### M9-3 (#322): Add Display Count Selector Enhancement
 **Type**: `type:feature`
 **Priority**: `P3`
 **Effort**: `effort:small` (15-30 min)
@@ -238,7 +238,7 @@ So that I know my action is being processed
 
 ---
 
-### M9-4: Add Search Form Enhancement
+### M9-4 (#335): Add Search Form Enhancement
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -312,7 +312,7 @@ So that I can quickly start a new search
 
 ---
 
-### M9-5: Add Hover Effects to Cards
+### M9-5 (#321): Add Hover Effects to Cards
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)

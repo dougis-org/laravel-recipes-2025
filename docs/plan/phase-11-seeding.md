@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M11-1: Create ClassificationSeeder
+### M11-1 (#343): Create ClassificationSeeder
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -78,7 +78,7 @@ So that I have realistic data for development and testing
 
 ---
 
-### M11-2: Create SourceSeeder
+### M11-2 (#344): Create SourceSeeder
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -137,7 +137,7 @@ So that recipes have realistic source attribution
 
 ---
 
-### M11-3: Create MealSeeder
+### M11-3 (#345): Create MealSeeder
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (15-30 min)
@@ -187,7 +187,7 @@ So that recipes can be categorized by when they're served
 
 ---
 
-### M11-4: Create PreparationSeeder
+### M11-4 (#346): Create PreparationSeeder
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (15-30 min)
@@ -242,7 +242,7 @@ So that recipes can specify cooking techniques
 
 ---
 
-### M11-5: Create CourseSeeder
+### M11-5 (#347): Create CourseSeeder
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (15-30 min)

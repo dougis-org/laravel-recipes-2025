@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M4-1: Add Search Scope to Recipe Model
+### M4-1 (#274): Add Search Scope to Recipe Model
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -103,7 +103,7 @@ So that I can quickly find recipes that match my needs
 
 ---
 
-### M4-2: Test Full-Text Search Performance (MySQL Only)
+### M4-2 (#268): Test Full-Text Search Performance (MySQL Only)
 **Type**: `type:testing`, `type:optimization`
 **Priority**: `P2`
 **Effort**: `effort:medium` (1 hour)

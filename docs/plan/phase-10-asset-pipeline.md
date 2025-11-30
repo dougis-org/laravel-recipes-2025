@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M10-1: Optimize Production Build Configuration
+### M10-1 (#339): Optimize Production Build Configuration
 **Type**: `type:optimization`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -144,7 +144,7 @@ So that the application loads quickly for users
 
 ---
 
-### M10-2: Test Production Build
+### M10-2 (#340): Test Production Build
 **Type**: `type:testing`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -214,7 +214,7 @@ So that deployments are reliable
 
 ---
 
-### M10-3: Configure Asset Versioning and Cache Busting
+### M10-3 (#341): Configure Asset Versioning and Cache Busting
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -295,7 +295,7 @@ So that users always get the latest assets after deployment
 
 ---
 
-### M10-4: Document Build Process and Performance Metrics
+### M10-4 (#342): Document Build Process and Performance Metrics
 **Type**: `type:docs`
 **Priority**: `P2`
 **Effort**: `effort:small` (30-60 min)

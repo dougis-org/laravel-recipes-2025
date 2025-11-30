@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M8-1: Create Cookbook Index View
+### M8-1 (#334): Create Cookbook Index View
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -109,7 +109,7 @@ So that I can browse and select one to view
 
 ---
 
-### M8-2: Create Cookbook Show View
+### M8-2 (#314): Create Cookbook Show View
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -222,7 +222,7 @@ So that I can find recipes easily within the cookbook
 
 ---
 
-### M8-3: Style Cookbook Views
+### M8-3 (#313): Style Cookbook Views
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30-60 min)
@@ -272,7 +272,7 @@ So that the interface feels cohesive across the application
 
 ---
 
-### M8-4: Test Cookbook Views
+### M8-4 (#330): Test Cookbook Views
 **Type**: `type:testing`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)

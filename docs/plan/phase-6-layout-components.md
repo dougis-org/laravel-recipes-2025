@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M6-1: Create Base App Layout
+### M6-1 (#303): Create Base App Layout
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -114,7 +114,7 @@ So that all pages have consistent structure and styling
 
 ---
 
-### M6-2: Create Button Component
+### M6-2 (#300): Create Button Component
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30-60 min)
@@ -184,7 +184,7 @@ So that buttons have consistent styling across the application
 
 ---
 
-### M6-3: Create Input Component
+### M6-3 (#337): Create Input Component
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30-60 min)
@@ -277,7 +277,7 @@ So that forms have consistent styling and error handling
 
 ---
 
-### M6-4: Create Select Component
+### M6-4 (#298): Create Select Component
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30-60 min)
@@ -365,7 +365,7 @@ So that dropdowns have consistent styling
 
 ---
 
-### M6-5: Create Card Component
+### M6-5 (#325): Create Card Component
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30-60 min)
@@ -449,7 +449,7 @@ So that content can be displayed in consistent containers
 
 ---
 
-### M6-6: Create Recipe Card Component
+### M6-6 (#338): Create Recipe Card Component
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1 hour)
@@ -541,7 +541,7 @@ So that I can browse recipes easily
 
 ---
 
-### M6-7: Create Pagination Component
+### M6-7 (#326): Create Pagination Component
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -698,7 +698,7 @@ So that I can browse through large recipe collections
 
 ---
 
-### M6-8: Create Sort Controls Component
+### M6-8 (#307): Create Sort Controls Component
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -792,7 +792,7 @@ So that I can find recipes in my preferred order
 
 ---
 
-### M6-9: Create Navigation Component
+### M6-9 (#328): Create Navigation Component
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:medium` (1 hour)
@@ -893,7 +893,7 @@ So that I can easily access different sections of the site
 
 ---
 
-### M6-10: Document Component Library
+### M6-10 (#331): Document Component Library
 **Type**: `type:docs`
 **Priority**: `P3`
 **Effort**: `effort:small` (30-60 min)

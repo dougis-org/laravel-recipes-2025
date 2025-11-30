@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M1-1: Create New Laravel 12 Project
+### M1-1 (#236): Create New Laravel 12 Project
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -53,7 +53,7 @@ So that I have the foundation for building the recipe manager application
 
 ---
 
-### M1-2: Configure Database Connection
+### M1-2 (#231): Configure Database Connection
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -100,7 +100,7 @@ So that Laravel can communicate with the MySQL/PostgreSQL database
 
 ---
 
-### M1-3: Initialize Git Repository
+### M1-3 (#232): Initialize Git Repository
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:small` (15-30 min)
@@ -146,7 +146,7 @@ So that I can track changes and collaborate effectively
 
 ---
 
-### M1-4: Configure Application Settings
+### M1-4 (#226): Configure Application Settings
 **Type**: `type:setup`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -193,7 +193,7 @@ So that the application has the correct name, timezone, and locale
 
 ---
 
-### M1-5: Verify Project Structure and Create Documentation
+### M1-5 (#235): Verify Project Structure and Create Documentation
 **Type**: `type:docs`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -238,7 +238,7 @@ So that I understand where to place different types of files
 
 ---
 
-### M1-6: Set Up Error Logging and Debugging
+### M1-6 (#227): Set Up Error Logging and Debugging
 **Type**: `type:setup`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -287,7 +287,7 @@ So that I can troubleshoot issues during development
 
 ---
 
-### M1-7: Set Up Project Status Dashboard GitHub Action
+### M1-7 (#233): Set Up Project Status Dashboard GitHub Action
 **Type**: `type:setup`
 **Priority**: `P2`
 **Effort**: `effort:medium` (1-2 hours)

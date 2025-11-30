@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M7-1: Create Recipe Index View
+### M7-1 (#332): Create Recipe Index View
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -161,7 +161,7 @@ So that I can find recipes that interest me
 
 ---
 
-### M7-2: Create Recipe Show View
+### M7-2 (#329): Create Recipe Show View
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -444,7 +444,7 @@ So that I can follow the recipe and see all information
 
 ---
 
-### M7-3: Style Recipe Index with Tailwind
+### M7-3 (#308): Style Recipe Index with Tailwind
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30-60 min)
@@ -504,7 +504,7 @@ So that the interface feels professional and works on all devices
 
 ---
 
-### M7-4: Style Recipe Show with Tailwind
+### M7-4 (#309): Style Recipe Show with Tailwind
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30-60 min)
@@ -559,7 +559,7 @@ So that recipes are easy to read and follow
 
 ---
 
-### M7-5: Test Recipe Views End-to-End
+### M7-5 (#312): Test Recipe Views End-to-End
 **Type**: `type:testing`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)

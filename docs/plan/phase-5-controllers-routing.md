@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M5-1: Create RecipeController with Index Method
+### M5-1 (#269): Create RecipeController with Index Method
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -118,7 +118,7 @@ So that I can find recipes that interest me
 
 ---
 
-### M5-2: Add RecipeController Show Method
+### M5-2 (#295): Add RecipeController Show Method
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -197,7 +197,7 @@ So that I can see all ingredients, instructions, and nutrition info
 
 ---
 
-### M5-3: Create CookbookController with Index
+### M5-3 (#288): Create CookbookController with Index
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -272,7 +272,7 @@ So that I can browse my cookbook collection
 
 ---
 
-### M5-4: Add CookbookController Show Method
+### M5-4 (#290): Add CookbookController Show Method
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -366,7 +366,7 @@ So that I can easily browse recipes by classification
 
 ---
 
-### M5-5: Create SearchRecipeRequest Form Request
+### M5-5 (#293): Create SearchRecipeRequest Form Request
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -478,7 +478,7 @@ So that the application is protected from invalid data
 
 ---
 
-### M5-6: Define Routes for Recipes
+### M5-6 (#297): Define Routes for Recipes
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (15-30 min)
@@ -531,7 +531,7 @@ So that users can access recipe listings and details
 
 ---
 
-### M5-7: Define Routes for Cookbooks
+### M5-7 (#275): Define Routes for Cookbooks
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (15-30 min)
@@ -584,7 +584,7 @@ So that users can access cookbook listings and details
 
 ---
 
-### M5-8: Create Default Route Redirect
+### M5-8 (#277): Create Default Route Redirect
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (15 min)
@@ -642,7 +642,7 @@ So that I can start browsing without extra clicks
 
 ---
 
-### M5-9: Write Controller Tests
+### M5-9 (#291): Write Controller Tests
 **Type**: `type:testing`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)

@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M2-1: Install and Configure Vite
+### M2-1 (#239): Install and Configure Vite
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -59,7 +59,7 @@ So that I can use hot module replacement during development
 
 ---
 
-### M2-2: Install and Configure Tailwind CSS 4
+### M2-2 (#240): Install and Configure Tailwind CSS 4
 **Type**: `type:setup`, `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -136,7 +136,7 @@ So that I can use utility-first CSS classes for styling
 
 ---
 
-### M2-3: Configure Package Scripts and Test Build
+### M2-3 (#241): Configure Package Scripts and Test Build
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -181,7 +181,7 @@ So that I can develop with HMR and deploy optimized assets
 
 ---
 
-### M2-4: Install and Configure Alpine.js 3
+### M2-4 (#242): Install and Configure Alpine.js 3
 **Type**: `type:setup`, `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -228,7 +228,7 @@ So that I can add reactive components without a heavy framework
 
 ---
 
-### M2-5: Update Base Layout with Vite Directives
+### M2-5 (#243): Update Base Layout with Vite Directives
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -281,7 +281,7 @@ So that all pages can include compiled CSS and JS assets
 
 ---
 
-### M2-6: Create Frontend Documentation
+### M2-6 (#244): Create Frontend Documentation
 **Type**: `type:docs`
 **Priority**: `P3`
 **Effort**: `effort:small` (30 min)

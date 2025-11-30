@@ -10,7 +10,7 @@
 
 ## Issues
 
-### M0-1: Verify PHP Installation and Extensions ⚡
+### M0-1 (#224): Verify PHP Installation and Extensions ⚡
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -47,7 +47,7 @@ So that Laravel 12 can run without errors
 
 ---
 
-### M0-2: Verify Node.js and npm Installation ⚡
+### M0-2 (#225): Verify Node.js and npm Installation ⚡
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:small` (30-60 min)
@@ -80,7 +80,7 @@ So that I can use Vite for frontend asset compilation
 
 ---
 
-### M0-3: Verify Composer Installation ⚡
+### M0-3 (#223): Verify Composer Installation ⚡
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:small` (15-30 min)
@@ -112,7 +112,7 @@ So that I can install Laravel 12 and its dependencies
 
 ---
 
-### M0-4: Set Up and Verify Database Server ⚡
+### M0-4 (#218): Set Up and Verify Database Server ⚡
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -152,7 +152,7 @@ So that Laravel can store and retrieve application data
 
 ---
 
-### M0-5: Verify Git Installation and Configuration ⚡
+### M0-5 (#219): Verify Git Installation and Configuration ⚡
 **Type**: `type:setup`
 **Priority**: `P1`
 **Effort**: `effort:small` (15-30 min)
@@ -186,7 +186,7 @@ So that I can version control my code and follow trunk-based delivery
 
 ---
 
-### M0-6: Choose and Configure Development Environment ⚡
+### M0-6 (#220): Choose and Configure Development Environment ⚡
 **Type**: `type:setup`
 **Priority**: `P2`
 **Effort**: `effort:medium` (1-2 hours)
@@ -227,7 +227,7 @@ So that I can run and test the Laravel application locally
 
 ---
 
-### M0-7: Configure Code Editor with Extensions ⚡
+### M0-7 (#221): Configure Code Editor with Extensions ⚡
 **Type**: `type:setup`
 **Priority**: `P3`
 **Effort**: `effort:small` (30-60 min)
@@ -265,7 +265,7 @@ So that I have autocomplete, syntax highlighting, and consistent formatting
 
 ---
 
-### M0-8: Document System Specifications
+### M0-8 (#222): Document System Specifications
 **Type**: `type:docs`
 **Priority**: `P3`
 **Effort**: `effort:small` (30 min)

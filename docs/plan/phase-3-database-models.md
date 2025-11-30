@@ -10,7 +10,7 @@
 
 ## Migration Issues (Wave 1: Independent Tables)
 
-### M3-1: Create Classifications Table Migration
+### M3-1 (#250): Create Classifications Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -52,7 +52,7 @@ So that recipes can be categorized by type (Appetizer, Main Course, etc.)
 
 ---
 
-### M3-2: Create Sources Table Migration
+### M3-2 (#283): Create Sources Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -85,7 +85,7 @@ So that recipes can reference their origin (cookbook, website, etc.)
 
 ---
 
-### M3-3: Create Meals Table Migration
+### M3-3 (#248): Create Meals Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -114,7 +114,7 @@ So that recipes can be tagged by meal type (Breakfast, Lunch, Dinner)
 
 ---
 
-### M3-4: Create Preparations Table Migration
+### M3-4 (#247): Create Preparations Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -143,7 +143,7 @@ So that recipes can specify preparation methods (Baked, Fried, etc.)
 
 ---
 
-### M3-5: Create Courses Table Migration
+### M3-5 (#256): Create Courses Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -172,7 +172,7 @@ So that recipes can specify course type (Appetizer, Main, Dessert, etc.)
 
 ---
 
-### M3-6: Create Cookbooks Table Migration
+### M3-6 (#252): Create Cookbooks Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -203,7 +203,7 @@ So that recipes can be organized into collections
 
 ## Migration Issues (Wave 2: Recipes Table)
 
-### M3-8: Create Recipes Table Migration
+### M3-8 (#279): Create Recipes Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1 hour)
@@ -249,7 +249,7 @@ So that recipe data can be stored with proper foreign key constraints
 
 ## Migration Issues (Wave 3: Pivot Tables)
 
-### M3-9: Create Recipe-Meals Pivot Table Migration
+### M3-9 (#280): Create Recipe-Meals Pivot Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -283,7 +283,7 @@ So that recipes can be tagged with multiple meal types
 
 ---
 
-### M3-10: Create Recipe-Preparations Pivot Table Migration
+### M3-10 (#254): Create Recipe-Preparations Pivot Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -312,7 +312,7 @@ So that recipes can specify multiple preparation methods
 
 ---
 
-### M3-11: Create Recipe-Courses Pivot Table Migration
+### M3-11 (#258): Create Recipe-Courses Pivot Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -341,7 +341,7 @@ So that recipes can belong to multiple course types
 
 ---
 
-### M3-12: Create Cookbook-Recipes Pivot Table Migration
+### M3-12 (#257): Create Cookbook-Recipes Pivot Table Migration
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:small` (30 min)
@@ -372,7 +372,7 @@ So that recipes can be organized into multiple cookbooks
 
 ## Migration Issues (Wave 4: Indexes)
 
-### M3-13: Create Database Indexes Migration
+### M3-13 (#261): Create Database Indexes Migration
 **Type**: `type:performance`
 **Priority**: `P2`
 **Effort**: `effort:medium` (1 hour)
@@ -415,7 +415,7 @@ So that queries perform efficiently as data grows
 
 ## Model Issues (Can mostly parallelize)
 
-### M3-14: Create Recipe Model with Relationships
+### M3-14 (#266): Create Recipe Model with Relationships
 **Type**: `type:feature`
 **Priority**: `P1`
 **Effort**: `effort:medium` (1-2 hours)
@@ -466,7 +466,7 @@ So that I can easily query and manipulate recipe data with Eloquent
 
 ---
 
-### M3-15: Create Classification Model
+### M3-15 (#282): Create Classification Model
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -496,7 +496,7 @@ So that I can manage recipe categories
 
 ---
 
-### M3-16: Create Source Model
+### M3-16 (#260): Create Source Model
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -526,7 +526,7 @@ So that I can track where recipes come from
 
 ---
 
-### M3-17: Create Meal Model
+### M3-17 (#285): Create Meal Model
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -556,7 +556,7 @@ So that recipes can be tagged by meal type
 
 ---
 
-### M3-18: Create Preparation Model
+### M3-18 (#294): Create Preparation Model
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -586,7 +586,7 @@ So that recipes can specify preparation methods
 
 ---
 
-### M3-19: Create Course Model
+### M3-19 (#284): Create Course Model
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:small` (30 min)
@@ -616,7 +616,7 @@ So that recipes can specify which course they belong to
 
 ---
 
-### M3-20: Create Cookbook Model with Ordered Recipes
+### M3-20 (#296): Create Cookbook Model with Ordered Recipes
 **Type**: `type:feature`
 **Priority**: `P2`
 **Effort**: `effort:medium` (1 hour)
