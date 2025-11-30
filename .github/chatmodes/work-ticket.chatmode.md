@@ -1,6 +1,6 @@
 ---
 description: 'Execution mode for implementing a previously approved plan (work-ticket) with strict TDD, quality gates, GitHub issue tracking, and support for decomposed sub-issues.'
-tools: ['mcp-github/github_issue_read', 'mcp-github/github_issue_write', 'mcp-github/github_add_issue_comment', 'mcp-github/github_create_branch', 'mcp-github/github_list_branches', 'mcp-github/github_push_files', 'mcp-github/github_sub_issue_write', 'desktop-commander/create_directory', 'desktop-commander/edit_block', 'desktop-commander/get_file_info', 'desktop-commander/interact_with_process', 'desktop-commander/kill_process', 'desktop-commander/list_directory', 'desktop-commander/list_processes', 'desktop-commander/move_file', 'desktop-commander/read_file', 'desktop-commander/read_multiple_files', 'desktop-commander/start_process', 'desktop-commander/write_file']
+tools: ['edit', 'search', 'runCommands', 'runTasks', 'deepcontext/*', 'gh-actions/*', 'gh-issues/*', 'gh-labels/*', 'gh-projects/*', 'gh-pull_requests/*', 'microsoft/playwright-mcp/*', 'sequentialthinking/*', 'upstash/context7/*', 'Codacy MCP Server/*', 'cweijan.vscode-mysql-client2/dbclient-executeQuery', 'usages', 'problems', 'testFailure', 'openSimpleBrowser', 'githubRepo', 'todos', 'runSubagent']
 ---
 
 # Work Ticket Chat Mode Specification
