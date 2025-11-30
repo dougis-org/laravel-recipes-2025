@@ -1,6 +1,6 @@
 ---
 description: 'Return a single GitHub Issue number (#NNN) that is ready to start; if none, explain blockers. Read-only.'
-tools: ['gh-issues/*', 'gh-projects/*']
+tools: ['gh-issues/*', 'gh-projects/get_project', 'gh-projects/get_project_field', 'gh-projects/get_project_item', 'gh-projects/list_project_fields', 'gh-projects/list_project_items', 'gh-projects/list_projects', 'gh-projects/update_project_item']
 ---
 
 # Find Next Ticket Chat Mode
@@ -27,5 +27,13 @@ tools: ['gh-issues/*', 'gh-projects/*']
 **Prioritization**: Sort by GitHub priority (highest first), then by creation date (oldest first) to break ties deterministically.
 
 **User confirmation required**: Once issue identified, present to user for confirmation before marking in-progress or adding labels.
+
+## Post-Confirmation Actions
+
+Upon user confirmation to proceed with selected issue:
+
+1. **Add `in-progress` label** via GitHub MCP `issue_write` method `update`
+2. **Transition project item to "In Progress"** via GitHub MCP project methods (query project for this repository, find matching item by issue number, update status field to "In Progress")
+3. **Output confirmation** with next steps directing user to `clarify-ticket` prompt
 
 End of find-next-ticket chat mode.
