@@ -1,96 +1,76 @@
 ---
-description: Determine the single next SPCS Jira ticket that can safely be started (critical-path first). Returns ONLY the ticket key or, if none are startable, an explanation of blockers.
+description: Determine the single next GitHub issue that can safely be started (critical-path first). Returns ONLY the issue number or, if none are startable, an explanation of blockers.
 ---
 
 # find-next-ticket Prompt
 
-Goal: Identify exactly one Jira issue (key only) in project SPCS that is the next logical item to pick up, prioritizing the production critical path, with zero side effects (read-only). If no item is startable, output a concise blocker explanation instead of a key.
+Goal: Identify exactly one GitHub issue (number only) in laravel-recipes-2025 that is the next logical item to pick up, respecting issue priority and blocking relationships, with zero side effects (read-only). If no item is startable, output a concise blocker explanation instead of an issue number.
 
 ## Output Contract (STRICT)
-- If a startable ticket exists: OUTPUT ONLY the ticket key (e.g., `SPCS-19`) and NOTHING else (no backticks, no prose).
-- If none are startable: output a short human explanation listing the earliest blocked task and its blocking predecessors (keys + statuses). Do NOT fabricate keys.
-- Never modify Jira issues, add comments, or transition statuses.
-
-## Priority Model
-1. Critical Path (must protect production launch date). Ordered list:
-   SPCS-5, SPCS-6, SPCS-7, SPCS-8,
-   SPCS-18, SPCS-19, SPCS-20, SPCS-21,
-   SPCS-29, SPCS-30, SPCS-31,
-   SPCS-39, SPCS-40, SPCS-41,
-   SPCS-43, SPCS-44
-2. Parallel / Supporting Track (only if ENTIRE critical path remaining work is currently blocked):
-   SPCS-10, SPCS-11, SPCS-12, SPCS-13, SPCS-14, SPCS-15, SPCS-16,
-   SPCS-45,
-   (Post-Production) SPCS-33, SPCS-34, SPCS-35, SPCS-36, SPCS-37
-
-Rationale: Advance production path first; if all critical-path candidates are blocked (waiting on code review merge or predecessor completion), harvest available parallel value.
+- If a startable issue exists: OUTPUT ONLY the issue number (e.g., `19`) and NOTHING else (no backticks, no prose).
+- If none are startable: output a short human explanation listing the earliest blocked task and its blocking predecessors (numbers + statuses). Do NOT fabricate issue numbers.
+- Never modify GitHub issues, add comments, or change issue status/labels.
 
 ## Read-Only Data Acquisition
-Use Jira MCP search (JQL) queries ONLY. Never assume statuses—always fetch.
+Use GitHub MCP search (GraphQL or REST API) queries ONLY. Never assume statuses—always fetch.
 
-Fetch candidates:
-JQL 1 (open work):
-  project = SPCS AND statusCategory != Done AND issueType in (Story, Task)
-JQL 2 (optionally narrower for performance):
-  project = SPCS AND key in ( <ALL_KEYS_FROM_PRIORITY_LIST> )
+Fetch all open issues in laravel-recipes-2025:
+  repo:dougis-org/laravel-recipes-2025 is:open type:issue
 
-Fetch individual issues (fields): key, status, statusCategory, issuetype, summary, issuelinks, priority, updated.
+Fetch individual issue details (fields): number, state, title, priority, labels, body (for linked issues), created, updated.
 
 ## Dependency Derivation
-Treat Jira issue links of type "Blocks" as authoritative:
-- If A "blocks" B, then B requires A statusCategory = Done before starting.
-If no explicit link exists for a sequential pair in the ordered lists above, IMPLICITLY treat the immediate predecessor in that list as a dependency. (This enforces linear sequencing where explicit links might not yet be present.)
+Treat GitHub issue links (via issue body mentions or linked issues) of type "blocks" as authoritative:
+- If A "blocks" B (indicated by "blocked by #A" in issue body or GitHub linked issues), then B requires A state = closed before starting.
+These explicit blocking relationships define the work sequencing — no implicit dependencies are assumed.
 
 ## Status Rules
-A predecessor is considered satisfied ONLY if statusCategory == Done. (Do NOT treat In Review / Code Review as done.) Conservative rule prevents premature parallel starts.
+A predecessor is considered satisfied ONLY if state == "closed". (Do NOT treat "in progress" or other states as done.) Conservative rule prevents premature parallel starts.
 Eligible (startable) candidate criteria (updated):
-- Issue status exactly "To Do" (ignore In Progress / In Review / Code Review entirely — they are considered in flight and not startable)
-- All explicit + implicit predecessors satisfied (statusCategory = Done)
-- Issue type in (Story, Task)
+- Issue state exactly "open" (ignore any custom labels indicating in-progress state — they are considered in flight and not startable)
+- All explicit + implicit predecessors satisfied (state = closed)
+- Issue should be tracked as a feature or task (not blocked by labels)
 
-Removed previous fallback of returning earliest In Progress item; now only pure To Do items are emitted.
+Removed previous fallback of returning earliest in-progress item; now only pure open items are emitted.
 
 ## Selection Algorithm
-1. Build ordered evaluation list = Critical Path list followed by Parallel list.
-2. For each key in that list:
-   a. Retrieve its issue object; if missing (not found), skip but record a warning for possible reporting (only if no candidate found).
-   b. Collect predecessor set:
-      - Explicit inward links of type "is blocked by" (other end of Blocks) → add those keys.
-      - If issue has an earlier neighbor in its priority list, add that as implicit predecessor (unless already satisfied by explicit link set).
-   c. Fetch each predecessor's statusCategory.
-   d. If ANY predecessor missing or not Done → this issue is blocked → record (issue, blocking set) for potential explanation.
-   e. Else if issue statusCategory in (To Do/Selected/Backlog) → mark as ready candidate; STOP scan and output key.
-3. If no ready candidate found among critical path, evaluate whether ALL unresolved critical-path items were blocked; if yes, continue scanning parallel list with same procedure (still respecting their own implicit sequencing and explicit links).
-4. Remove previous In Progress fallback: if no To Do candidate exists, proceed directly to explanation.
-5. Construct explanation:
-   - Choose the earliest To Do issue in evaluation order that is blocked OR, if none remain To Do, explain that all remaining work is already in progress/review.
-   - List its blocking predecessors (keys + their statuses) when applicable.
-   - Output concise sentence (no markdown formatting).
+1. Fetch all open issues in the repository.
+2. For each open issue, collect its predecessor set:
+   - Explicit blocking relationships (indicated by "blocked by #" pattern in issue body or GitHub linked issues) → add those issue numbers.
+3. Filter to only issues with all predecessors satisfied (state = closed or no predecessors).
+4. Among ready candidates, sort by GitHub priority (highest first), then by issue creation date (oldest first).
+5. Return the first (highest priority) startable issue number.
+6. If no startable issues exist:
+   - Construct explanation:
+     - Identify the highest-priority open issue that is blocked.
+     - List its blocking predecessors (numbers + their current states).
+     - Output concise sentence (no markdown formatting).
 
 ## Tie-Breakers
-If multiple ready items appear simultaneously (should not happen due to STOP rule): choose the one with the smallest index in ordered list. Ignore priority field unless two parallel-track items both fully unblocked while critical path still globally blocked; then prefer higher Jira priority (if available) else earliest index.
+Sort by GitHub priority (highest first), then by issue creation date (oldest first) to ensure deterministic ordering.
 
 ## Validation & Safety
 - Never transition or comment.
-- Do not guess statuses; if a needed issue fetch fails, treat that predecessor as blocking and provide explanation.
-- If Jira MCP unavailable: output explanation: "No selection; Jira unavailable (reason)." (No key.)
+- Do not guess states; if a needed issue fetch fails, treat that predecessor as blocking and provide explanation.
+- If GitHub API unavailable: output explanation: "No selection; GitHub API unavailable (reason)." (No number.)
 
 ## Examples
-Scenario A: SPCS-5 Done; SPCS-6 To Do → Return `SPCS-6`.
-Scenario B: SPCS-5 In Review; SPCS-6 To Do → Blocked (explain SPCS-6 blocked by SPCS-5 In Review).
-Scenario C: All remaining critical path tasks each blocked; SPCS-10 To Do with all its explicit predecessors satisfied → Return `SPCS-10`.
-Scenario D: SPCS-18 In Progress; all earlier tasks Done; no other To Do tasks ready → Return `SPCS-18`.
+Scenario A: #5 closed; #6 open with no blocking issues → Return `6`.
+Scenario B: #5 in progress; #6 open and blocked by #5 → Explain: "#6 blocked by #5 (in progress)".
+Scenario C: #10 open with higher priority than #15, both with all predecessors satisfied → Return `10`.
+Scenario D: All open issues each have at least one unresolved predecessor → Explain the highest-priority blocked issue and its blockers.
 
 ## Execution Steps (Implementation Guidance)
-1. Expand ordered key arrays (two Python lists or shell arrays) internally for dependency checks.
-2. Bulk search to map key → issue object.
-3. Build adjacency map from issue links (blockers per key).
-4. Apply algorithm; short-circuit on first ready key.
-5. Emit output per contract.
+1. Fetch all open issues from the repository.
+2. Build a dependency map from issue links (blockers per issue number).
+3. Identify all startable issues (open state, all predecessors closed or none).
+4. Sort by priority (highest first), then by creation date (oldest first).
+5. Return the first issue number, or an explanation if no startable issues exist.
+6. Emit output per contract.
 
 ## Final Output Enforcement
 Before emitting: validate output string.
-- If regex ^SPCS-\d+$ matches → OK.
+- If regex ^\d+$ matches → OK.
 - Else explanation path is assumed.
 
 Return ONLY the final output string.
