@@ -1,6 +1,6 @@
 ---
 description: 'Execution mode for implementing a previously approved plan (work-ticket) with strict TDD, quality gates, GitHub issue tracking, and support for decomposed sub-issues.'
-tools: ['edit', 'search', 'runCommands', 'runTasks', 'deepcontext/*', 'gh-actions/*', 'gh-issues/*', 'gh-labels/*', 'gh-projects/*', 'gh-pull_requests/*', 'microsoft/playwright-mcp/*', 'sequentialthinking/*', 'upstash/context7/*', 'Codacy MCP Server/*', 'cweijan.vscode-mysql-client2/dbclient-executeQuery', 'usages', 'problems', 'testFailure', 'openSimpleBrowser', 'githubRepo', 'todos', 'runSubagent']
+tools: ['edit', 'search', 'runCommands', 'runTasks', 'deepcontext/*', 'desktop-commander-wonderwhy/interact_with_process', 'desktop-commander-wonderwhy/list_processes', 'desktop-commander-wonderwhy/read_multiple_files', 'desktop-commander-wonderwhy/read_process_output', 'desktop-commander-wonderwhy/start_process', 'desktop-commander-wonderwhy/start_search', 'gh-actions/*', 'gh-issues/*', 'gh-labels/*', 'gh-projects/*', 'gh-pull_requests/*', 'microsoft/playwright-mcp/*', 'sequentialthinking/*', 'upstash/context7/*', 'Codacy MCP Server/*', 'cweijan.vscode-mysql-client2/dbclient-executeQuery', 'usages', 'problems', 'testFailure', 'githubRepo', 'todos', 'runSubagent']
 ---
 
 # Work Ticket Chat Mode
